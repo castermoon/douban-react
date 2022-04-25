@@ -1,0 +1,57 @@
+.Common-Top-header
+  min-width 1078px
+  height 30px
+  line-height 30px
+  background #545652
+  color #eee
+  box-sizing border-box
+  padding 0 15px
+  font-size 13px
+  .header-left
+    float left
+    .header-link
+      float left
+      margin-right 24px
+      a
+        color: #ccc
+  .header-right
+    float: right
+    margin-right 30px
+    .header-right-link
+      margin-right 20px;
+      color: #ccc;
+      &:nth-last-child(1)
+        margin-right 0
+      .noticeActive
+        text-align center
+        line-height 15px
+        vertical-align middle
+        display inline-block
+        margin 0 3px
+        width 15px
+        height 15px
+        background red
+        color #fff
+        border-radius 5px
+    .drop-down-menu
+      display inline-block
+      vertical-align top
+      position relative;
+      .drop-down-menu-btn
+        color: #ccc
+        text-align center
+      .drop-down-menu-list
+        position absolute
+        top 30px
+        left -10px
+        width 90px
+        background #fff
+        border 1px solid #ccc
+        display none
+        &.isActive
+          display block
+        .drop-down-menu-item
+          text-align center
+          color #000
+          &.drop-down-menu-item:hover
+            background #F6F6F6
