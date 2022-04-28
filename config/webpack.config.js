@@ -478,14 +478,14 @@ module.exports = function (webpackEnv) {
                 sourceMap: isEnvProduction
                   ? shouldUseSourceMap
                   : isEnvDevelopment,
-                // modules: {
-                //   mode: 'icss',
-                // },
-                modules:{
-                  mode: "local",
-                  localIdentName: "[name]__[local]"
-                  // localIdentName: "[name]__[local]___[hash:base64:5]"
-                }
+                modules: {
+                  mode: 'icss',
+                },
+                // modules:{
+                //   mode: "local",
+                //   localIdentName: "[name]__[local]"
+                //   // localIdentName: "[name]__[local]___[hash:base64:5]"
+                // }
               }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -801,6 +801,6 @@ module.exports = function (webpackEnv) {
     ].filter(Boolean),
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
-    performance: false,
+    performance: false
   };
 };
