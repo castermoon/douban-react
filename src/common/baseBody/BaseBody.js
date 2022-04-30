@@ -1,27 +1,22 @@
-import React, { Component } from "react"
+import React from "react"
 import style from "./basebody.styl"
-class BaseBody extends Component{
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return(
-			<div className={style.baseBody}>
-				{
-					this.props.title && <h1 className={style.baseBodyTitle}>
-						{this.props.title}
-					</h1>
-				}
 
-				<div className={style.baseBodyLeft}>
-					{this.props.left}
-				</div>
-				<div className={style.baseBodyRight}>
-					{this.props.right}
-				</div>
+const BaseBody = (props) => {
+	return(
+		<div className={style.baseBody}>
+			{
+				props.title && <h1 className={style.baseBodyTitle}>
+					{props.title}
+				</h1>
+			}
+
+			<div className={style.baseBodyLeft}>
+				{props.left}
 			</div>
-		)
-	}
+			<div className={style.baseBodyRight}>
+				{props.right}
+			</div>
+		</div>
+	)
 }
-
 export default BaseBody;

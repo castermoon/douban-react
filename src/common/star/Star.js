@@ -1,25 +1,21 @@
 import React, {Component} from "react"
 import style from "./star.styl"
 
-class Star extends Component {
-	constructor(props) {
-		super(props);
-	}
+const Star = (props) => {
+	const { score } = props
+	return (
+		<div className={style.star}>
+			{
+				itemClasses(score).map((item,index) =>{
+					return <div className={[style.starItem,style[item]].join(" ")} key={index}></div>
+				})
+			}
+		</div>
+	)
 
-	render() {
-		return (
-			<div className={style.star}>
-				{
-					this.itemClasses.map((item,index) =>{
-						return <div className={[style.starItem,style[item]].join(" ")} key={index}></div>
-					})
-				}
-			</div>
-		)
-	}
-	get itemClasses(){
+	function itemClasses(score){
 		let arr = []
-		let score = this.props.score / 2
+		score = score / 2
 		let onStar = Math.floor(score)
 		let halfStar = 0
 		if(score - onStar >= 0.5){
@@ -38,5 +34,4 @@ class Star extends Component {
 		return arr
 	}
 }
-
 export default Star;
