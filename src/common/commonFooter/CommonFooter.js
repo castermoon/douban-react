@@ -4,6 +4,7 @@ const CommonFooter = () => {
 	return(
 		<div className={style.footer}>
 			<div className={style.footerLeft}>© 2005－2020 douban.com, all rights reserved 北京豆网科技有限公司</div>
+
 		</div>
 	)
 }

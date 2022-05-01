@@ -1,7 +1,7 @@
 import React,{useState} from "react"
 import style from "./movieCommentWindow.styl"
 
-const MovieCommentWindow = () => {
+const MovieCommentWindow = (props) => {
 	const myLabelList = setLabelInitialState(["悬疑","推理","治愈","推的","大萨达","啊啊啊","抖动","zz","学习","dd","打得"]);
 	const usedLabelList = setLabelInitialState(["悬疑","推理","警匪"]);
 	const [ myLabelStatusList, setMyLabelStatusList] = useState(myLabelList)
@@ -13,11 +13,13 @@ const MovieCommentWindow = () => {
 	const [ isShareInput, setIsShareInput] = useState("on")
 	const [ statusInput, setStatusInput] = useState("on")
 
+	const { WindowIsShow,closeWindow } = props
 	return(
+		WindowIsShow &&
 		<div className={style.movieCommentWindow}>
 			<div className={style.windowHeader}>
 				<span>添加收藏：写短评</span>
-				<div className={style.close} onClick={closeShortCommentWindow}>关闭</div>
+				<div className={style.close} onClick={closeWindow}>关闭</div>
 			</div>
 			<div className={style.windowBody}>
 				<div className={style.windowCheckboxList}>
@@ -73,11 +75,8 @@ const MovieCommentWindow = () => {
 				<div className={style.save} onClick={saveShortComment}>保存</div>
 			</div>
 		</div>
-
 	)
-	function closeShortCommentWindow(e){
 
-	}
 
 	function handleLabelInputChange(e){
 		const value = e.target.value
