@@ -9,6 +9,9 @@ import Notice from "./pages/notice/Notice";
 import ShortComments from "./pages/shortComments/ShortComments";
 import LongComments from "./pages/longComments/LongComments";
 import SubjectSearch from "./pages/subjectSearch/SubjectSearch";
+import LongCommentDetail from "./pages/longCommentDetail/LongCommentDetail";
+import Login from "./pages/login/Login";
+import Personal from "./pages/personal/Personal";
 
 class App extends Component{
   render() {
@@ -20,9 +23,12 @@ class App extends Component{
           <Route path="/celebrity/:celebrity_id"  element={<Celebrity/>}/>
           <Route path="/shortComments/:movie_id/:page/:commentType" element={<ShortComments/>}/>
           <Route path="/longComments/:movie_id/:page"  element={<LongComments/>}/>
+          <Route path="/longCommentDetail/:longCommentDetail_id"  element={<LongCommentDetail/>}/>
           <Route path="/writeLongComment/:user_id"  element={<WriteLongComment/>}/>
           <Route path="/notice/:user_id"  element={<Notice/>}/>
           <Route path="/subjectSearch/:searchContent/:searchType"  element={<SubjectSearch/>}/>
+          <Route path="/login"  element={<Login/>}/>
+          <Route path="/personal/:user_id"  element={<Personal/>}/>
         </Routes>
       </BrowserRouter>
     )

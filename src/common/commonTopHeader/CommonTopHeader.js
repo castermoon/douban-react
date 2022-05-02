@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import style from "./commonTopHeader.styl"
+import { Link } from "react-router-dom"
 
 const CommonTopHeader = () => {
 	return (
@@ -15,6 +16,9 @@ const CommonTopHeader = () => {
 				<li className={style.headerLink}><a href="#">FM</a></li>
 			</ul>
 			<div className={style.headerRight}>
+				<Link to={"/notice/1"} className={style.headerRightLink}>提醒</Link>
+				<Link to={"/login"} className={style.headerRightLink}>登录/注册</Link>
+				<Link to={"/personal/1"} className={style.headerRightLink}>个人主页</Link>
 				<div className={style.dropDownMenu}>
 					<a className={style.dropDownMenuBtn}>的账号</a>
 					<ul className={style.dropDownMenuList}>

@@ -21,8 +21,8 @@ const WriteLongComment = () => {
 					<label className={style.label}>是否剧透:</label><input type="checkbox"/>
 				</div>
 				<textarea className={style.titleInput} maxLength="200" placeholder="添加标题" rows="1"
-									style={{resize: "none",overflow: "hidden", height: "30px"}}></textarea>
-				<textarea className={style.commentInput} placeholder="写评论..."></textarea>
+									style={{resize: "none",overflow: "hidden", height: "30px"}}/>
+				<textarea className={style.commentInput} placeholder="写评论..."/>
 			</div>
 		</div>
 	)

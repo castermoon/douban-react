@@ -1,10 +1,22 @@
 import CommonTopHeader from "../../common/commonTopHeader/CommonTopHeader";
 import PersonalHeader from "../../common/personalHeader/PersonalHeader";
 import style from "./notice.styl"
-import React,{Fragment} from "react"
-import { Link } from "react-router-dom"
+import React,{Fragment,useEffect,useState} from "react"
+import { Link,useParams,useNavigate } from "react-router-dom"
+import axios from "axios"
 import BaseBody from "../../common/baseBody/BaseBody";
 const Notice = () => {
+	const params = useParams()
+	const navigate = useNavigate()
+	const { user_id } = params
+	const [noticeList, setNoticeList] = useState([])
+
+	// //getData
+	// useEffect(() => {
+	// 	axios.get(`/api/notice/${user_id}`, {
+	// 	}).then(getNoticeInfoSucc)
+	// },[])
+
 	return(
 		<Fragment>
 			<CommonTopHeader/>
@@ -26,6 +38,13 @@ const Notice = () => {
 			/>
 			</Fragment>
 	)
+
+	function getNoticeInfoSucc (res) {
+		res = res.data
+		if (res.errno === 0 && res.data) {
+			const data = res.data
+		}
+	}
 }
 
 export default Notice

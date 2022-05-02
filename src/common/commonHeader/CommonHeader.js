@@ -1,4 +1,4 @@
-import React, { useEffect,useState,Fragment } from "react"
+import React, { useState,Fragment } from "react"
 import CommonTopHeader from "../commonTopHeader/CommonTopHeader";
 import style from "./commonHeader.styl"
 import { Link, useNavigate, useParams } from "react-router-dom"
@@ -67,5 +67,6 @@ const CommonHeader = () => {
 		}
 		navigate(`/subjectSearch/${currentSearchContent}/${currentSearchType}`)
 	}
+
 }
 export default CommonHeader;

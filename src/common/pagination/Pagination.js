@@ -1,13 +1,12 @@
 import style from "./pagination.styl"
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import PhotoBox from "../../pages/detail/component/photoBox/PhotoBox";
 const Pagination = (props) => {
 	const params = useParams()
 	const { page,movie_id,commentType ="" } = params
 	const navigate = useNavigate()
 	const [pageList, setPageList] = useState([1,2,3,4,5,6,7,8,9,'...']);
-	const [currentPage, setCurrentPage] = useState(page);
+	const [currentPage, setCurrentPage] = useState(parseInt(page));
 
 	useEffect(() => {
 		changePage(pageList,currentPage)
