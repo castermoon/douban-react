@@ -1,10 +1,13 @@
 import React, { Fragment,useState, useEffect } from "react"
 import style from "./login.styl"
-
+import axios from "axios"
 import {Link,useParams,useNavigate } from "react-router-dom"
 import CommonTopHeader from "../../common/commonTopHeader/CommonTopHeader";
+import store from "../../store";
 
 const Login = () => {
+	let navigate = useNavigate()
+
 	const [tabShow, setTabShow] = useState(1);
 	const [submitActive, setSubmitActive] = useState(false);
 	const [username, setUsername] = useState("");
@@ -62,11 +65,46 @@ const Login = () => {
 	}
 
 	function loginClick(){
+		axios.post('/api/user/login',{
+			username:username,
+			password:password
+		})
+			.then(loginSucc)
+			.catch((err)=>{
+				console.log(err)
+			})
+	}
 
+	function loginSucc(res){
+		if(!res.data.data){
+			return
+		}
+		const action = {
+			type:"change_user_info",
+			value:res.data.data
+		}
+		store.dispatch(action)
+		navigate(`/personal/${res.data.data.id}`)
 	}
 
 	function registerClick(){
+		axios.post('/api/user/register',{
+			username:registerName,
+			password:registerPassword
+		})
+			.then(registerSucc)
+			.catch((err)=>{
+				console.log(err)
+			})
+	}
 
+	function registerSucc(res){
+		if(res.data.errno == 0){
+			alert("注册成功")
+			navigate(`/personal/${res.data.data.id}`)
+		}else {
+			alert(res.data.message)
+		}
 	}
 
 	function usernameInputChange(e){

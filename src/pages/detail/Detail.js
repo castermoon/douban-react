@@ -86,6 +86,7 @@ const Detail = () => {
 				right={<div>2</div>}
 			/>
 			<MovieCommentWindow
+				movie_id={movieData.id}
 				WindowIsShow={WindowIsShow}
 				closeWindow={closeWindow}
 			/>

@@ -8,6 +8,8 @@ import Star from "../../common/star/Star";
 import {Link,useParams,useNavigate } from "react-router-dom"
 import Pagination from "../../common/pagination/Pagination";
 import CommonMovieData from "../../common/commonMovieData/CommonMovieData";
+import store from "../../store";
+import MovieCommentWindow from "../../common/movieCommentWindow/MovieCommentWindow";
 const ShortComments = () => {
 	const [data, setData] = useState({
 		CommentsMovieData:{},
@@ -16,6 +18,7 @@ const ShortComments = () => {
 	const params = useParams(),navigate = useNavigate();
 
 	const { movie_id, page, commentType } = params
+	const [WindowIsShow, setWindowIsShow] = useState(false)
 
 	//getData
 	useEffect(()=>{
@@ -37,7 +40,7 @@ const ShortComments = () => {
 							<div className={style.tabHeader} onClick={commentTypeChange}>
 								<button className={[style.tabHeaderItem,commentType !== 'noLooked' ? style.isActive : ""].join(" ")} value ="all">看过</button>
 								<button className={[style.tabHeaderItem,commentType === 'noLooked' ? style.isActive : ""].join(" ")} value ="noLooked">想看</button>
-								<div className={style.writeShortComment} onClick={writeShortComment}>我来写短评</div>
+								<div className={style.writeShortComment} onClick={event => {writeShortComment(event)}}>我来写短评</div>
 							</div>
 							<div className={style.tabBody}>
 								<div className={style.commentFilter} onChange={commentTypeChange}>
@@ -92,6 +95,11 @@ const ShortComments = () => {
 					<CommonMovieData CommentsMovieData={CommentsMovieData}/>
 				}
 			/>
+			<MovieCommentWindow
+				movie_id={CommentsMovieData.id}
+				WindowIsShow={WindowIsShow}
+				closeWindow={closeWindow}
+			/>
 			<CommonFooter/>
 		</Fragment>
 	)
@@ -99,9 +107,15 @@ const ShortComments = () => {
 		const value = e.target.value
 		navigate(`/shortComments/${movie_id}/1/${value}`)
 	}
-	function writeShortComment(){
-
+	function writeShortComment(e){
+		e.stopPropagation()
+		setWindowIsShow(true)
 	}
+
+	function closeWindow(){
+		setWindowIsShow(false)
+	}
+
 }
 
 

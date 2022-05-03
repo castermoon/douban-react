@@ -5,6 +5,7 @@ import style from "./longCommentDetail.styl"
 import CommonFooter from "../../common/commonFooter/CommonFooter";
 import axios from "axios"
 import {Link,useParams,useNavigate } from "react-router-dom"
+import store from "../../store";
 import CommonMovieData from "../../common/commonMovieData/CommonMovieData";
 import Star from "../../common/star/Star";
 const LongCommentDetail = () => {
@@ -15,11 +16,11 @@ const LongCommentDetail = () => {
 	const [CommentsMovieData, setCommentsMovieData] = useState({});
 	const [longCommentDetailRes, setLongCommentDetailRes] = useState([]);
 	const [longCommentDetail, setLongCommentDetail] = useState({});
+	const [userInfo, setUserInfo] = useState(store.getState());
 
 
 	const [resInputContent, setResInputContent] = useState("");
 	const [myRespondInputContent, setMyRespondInputContent] = useState("");
-
 
 
 	//getData
@@ -42,7 +43,11 @@ const LongCommentDetail = () => {
 			})
 	},[longCommentDetail_id])
 
-	return(
+		store.subscribe(()=>{
+			setUserInfo(store.getState())
+		})
+
+		return(
 		<div onClick={(event => {respondInputHide(event)})}>
 			<CommonHeader />
 			<BaseBody
@@ -110,7 +115,7 @@ const LongCommentDetail = () => {
 																		<input className={style.respondInput} onChange={resInputContentChange} value={resInputContent}/>
 																		<button
 																			className={style.respond_btn}
-																			onClick={(event) =>{ createResRes(item.id, secondResItem.secondRes_userId, index)}}
+																			onClick={(event) =>{ createResRes(event,item.id, secondResItem.secondRes_userId, index)}}
 																		>加上去
 																		</button>
 																	</div>
@@ -158,11 +163,53 @@ const LongCommentDetail = () => {
 	}
 
 	function createMyRespond (){
+		if(myRespondInputContent.trim() === ""){
+			alert("没有输入回应内容")
+			return
+		}
+		axios.post('/api/longCommentDetail/createLongCommentRes',{
+			user_id:userInfo.userInfo.id,
+			longComment_id:longCommentDetail.id,
+			content:myRespondInputContent.trim(),
+			scrollTop:document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop,
+			respondent_id:longCommentDetail.user_id
+		})
+		.then((data) => {
+			setMyRespondInputContent("")
+			window.location.reload()
+		})
+		.catch((err) => {
+			console.log(err)
+		})
 	}
 
 
-	function createResRes(){
-
+	function createResRes(event,longCommentRes_id,respond_id,index){
+		if(resInputContent.trim() === ""){
+			alert("没有输入回应内容")
+			return
+		}
+		if(!userInfo.userInfo.id){
+			alert("没有登录")
+			return
+		}
+		//index表示被回复楼层所在列表的索引。
+		// let scrollTop = this.$refs.respondItemList[index].offsetTop + this.$refs.respondItemList[index].offsetHeight - 200
+		axios.post('/api/longCommentDetail/createLongCommentResRes',{
+			user_id:userInfo.userInfo.id,
+			longCommentRespond_id:longCommentRes_id,
+			longComment_id:longCommentDetail.id,
+			respond_id:respond_id,
+			content:resInputContent.trim(),
+			scrollTop:0
+		})
+			.then((data) => {
+				console.log(data)
+				window.location.reload()
+			})
+			.catch((err) => {
+				console.log(err)
+			})
 	}
 
 	function respondInputShow(event,id,type){
@@ -171,14 +218,14 @@ const LongCommentDetail = () => {
 		const cloneLongCommentDetailRes = JSON.parse(JSON.stringify(longCommentDetailRes))
 		for(let i = 0;i < cloneLongCommentDetailRes.length;i++){
 			const first = cloneLongCommentDetailRes[i]
-			if(first.id === id && type === "first"){
+			if(id === first.id && type === "first"){
 				first.respondInputIsShow = true
 			}else {
 				first.respondInputIsShow = false
 			}
 			for(let j = 0;j < first.secondResList.length;j++){
 				const second = first.secondResList[j]
-				if(second["secondRes_id"] === id && type === "second"){
+				if(id === second.secondRes_id && type === "second"){
 					second.respondInputIsShow = true
 				}else {
 					second.respondInputIsShow = false

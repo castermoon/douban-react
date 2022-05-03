@@ -11,26 +11,30 @@ const Notice = () => {
 	const { user_id } = params
 	const [noticeList, setNoticeList] = useState([])
 
-	// //getData
-	// useEffect(() => {
-	// 	axios.get(`/api/notice/${user_id}`, {
-	// 	}).then(getNoticeInfoSucc)
-	// },[])
+	//getData
+	useEffect(() => {
+		axios.get(`/api/notice/${user_id}`, {
+		}).then(getNoticeInfoSucc)
+	},[])
 
 	return(
 		<Fragment>
 			<CommonTopHeader/>
 			<PersonalHeader/>
 			<BaseBody
-				title="我的提醒"
+				title={"我的提醒"}
 				left={
-					1
-					// <ul className={style.noticeList}>
-					// 	<li className={style.noticeListItem} v-for="item of noticeList" :key="item.id">
-					// 	<a href="." className={style.replierName}>{ item.replierName }</a>回复了您的帖子<Link className={style.longCommentName} to={path:'longCommentDetail',query:{longComment_id:item.longComment_id,scrollTop:item.scrollTop}} >{ item.title }</Link>
-					// <div class="no-remind" @click="delNotice(item.id)">不再提醒</div>
-					// </li>
-					// </ul>
+					<ul className={style.noticeList}>
+						{
+							noticeList.map(item => {
+								return <li className={style.noticeListItem} key={item.id}>
+								<a  className={style.replierName}>{ item.replierName }</a>回复了您的帖子<Link className={style.longCommentName} to={`/longCommentDetail/${item.longComment_id}/${item.scrollTop}`} >{ item.title }</Link>
+								<div className={style.noRemind} onClick={() => {delNotice(item.id)}}>不再提醒</div>
+							</li>
+							})
+						}
+
+					</ul>
 				}
 				right={
 					<div>2</div>
@@ -39,10 +43,21 @@ const Notice = () => {
 			</Fragment>
 	)
 
+	function delNotice(noticeId){
+		axios.post('/api/notice/delNotice',{
+			id:noticeId
+		}).then((res)=>{
+			console.log(res)
+		}).catch((err)=>{
+			console.log(err)
+		})
+	}
+
 	function getNoticeInfoSucc (res) {
 		res = res.data
 		if (res.errno === 0 && res.data) {
 			const data = res.data
+			setNoticeList(data.noticeList)
 		}
 	}
 }

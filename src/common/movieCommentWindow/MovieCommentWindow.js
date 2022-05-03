@@ -1,5 +1,7 @@
 import React,{useState} from "react"
 import style from "./movieCommentWindow.styl"
+import store from "../../store";
+import axios from "axios"
 
 const MovieCommentWindow = (props) => {
 	const myLabelList = setLabelInitialState(["悬疑","推理","治愈","推的","大萨达","啊啊啊","抖动","zz","学习","dd","打得"]);
@@ -12,8 +14,14 @@ const MovieCommentWindow = (props) => {
 	const [ onlyMeInput, setOnlyMeInput] = useState("off")
 	const [ isShareInput, setIsShareInput] = useState("on")
 	const [ statusInput, setStatusInput] = useState("on")
+	const [ userInfo,setUserInfo] = useState(null)
 
-	const { WindowIsShow,closeWindow } = props
+
+	store.subscribe(()=>{
+		setUserInfo(store.getState())
+	})
+
+	const { WindowIsShow,closeWindow,movie_id } = props
 	return(
 		WindowIsShow &&
 		<div className={style.movieCommentWindow}>
@@ -100,7 +108,7 @@ const MovieCommentWindow = (props) => {
 	}
 
 	function handleIsShareInputChange(e){
-		console.log(e.target.hasAttribute("checked"))
+		// console.log(e.target.hasAttribute("checked"))
 		// const value = e.target.value === "off" ? "on":"off"
 		// setIsShareInput(value)
 	}
@@ -133,7 +141,25 @@ const MovieCommentWindow = (props) => {
 	}
 
 	function saveShortComment(){
+		axios.post('/api/comments/createComment',{
+			movieId:movie_id,
+			userId:userInfo.userInfo.id,
+			content:shortCommentContentInput,
+			score:parseInt(scoreInput)*2,
+			status:1,
+			labelList:"",
+			onlyMe:0,
+			isShare:1
+		})
+			.then(function (data){
+				console.log(data)
+				alert("保存成功")
 
+			})
+			.catch(function (err){
+				console.log(err)
+			})
+		closeWindow()
 	}
 
 	function setLabelInitialState(labelList){

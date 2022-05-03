@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import style from "./bannerSwiper.styl"
+import { Link } from "react-router-dom"
 // import Swiper core and required modules
 import { Navigation, Pagination } from 'swiper';
 
@@ -23,10 +24,12 @@ const BannerSwiper = (props) => {
 				pages(PhotoList).map((page,index) => {
 					return <SwiperSlide key={index}>
 						{ page.map((item) => {
-							return <div className={style.item} key={item.id}>
-								<div className={style.icon}><img src={item.cover}/></div>
-								<div className={style.name}>{item.name}</div>
-							</div>
+							return <Link to={`/detail/${item.id}`} key={item.id}>
+									<div className={style.item} key={item.id}>
+										<div className={style.icon}><img src={item.cover}/></div>
+										<div className={style.name}>{item.name}</div>
+									</div>
+								</Link>
 						})}
 					</SwiperSlide>
 				})

@@ -23,7 +23,7 @@ class App extends Component{
           <Route path="/celebrity/:celebrity_id"  element={<Celebrity/>}/>
           <Route path="/shortComments/:movie_id/:page/:commentType" element={<ShortComments/>}/>
           <Route path="/longComments/:movie_id/:page"  element={<LongComments/>}/>
-          <Route path="/longCommentDetail/:longCommentDetail_id"  element={<LongCommentDetail/>}/>
+          <Route path="/longCommentDetail/:longCommentDetail_id/:scrollTop"  element={<LongCommentDetail/>}/>
           <Route path="/writeLongComment/:user_id"  element={<WriteLongComment/>}/>
           <Route path="/notice/:user_id"  element={<Notice/>}/>
           <Route path="/subjectSearch/:searchContent/:searchType"  element={<SubjectSearch/>}/>

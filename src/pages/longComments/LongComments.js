@@ -48,7 +48,7 @@ const LongComments = () => {
 											</div>
 											<div className={style.date}>{item.date}</div>
 										</div>
-										<Link to={`/longCommentDetail/${item.id}`} className={style.longCommentsListItemTitle}>{ item.title }</Link>
+										<Link to={`/longCommentDetail/${item.id}/0`} className={style.longCommentsListItemTitle}>{ item.title }</Link>
 										{ item.spoiler && <div className={style.Spoiler}>| 这篇影评可能有剧透</div> }
 										<p className={style.longCommentsListItemContent}>
 											{item.content}
