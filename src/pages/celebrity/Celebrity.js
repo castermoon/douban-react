@@ -55,9 +55,9 @@ const Celebrity = () => {
 							<div className={style.recentWorksTitle}>最近的5部作品（已上映）  · · · · · ·</div>
 							<ul className={[style.recentWorksList,style.clearfix].join(" ")}>
 								{
-									recentWorksListData.map(item => {
+									recentWorksListData.length > 0 &&recentWorksListData.map(item => {
 										return <Link className={style.recentWorksItem} key={item.id} to={`/detail/${item.id}`}>
-											<div className={style.recentWorksItemTitle}>{item.time}</div>
+											<div className={style.recentWorksItemTitle}>{timeFormatChange(item.time)}</div>
 											<div className={style.recentWorksImgWrapper}><img className={style.recentWorksImg} src={item.cover}/></div>
 											<p className={[style.recentWorksInfo,mixins.multilineEllipsis].join(" ")}>{item.name}</p>
 											<div className={style.score}>{item.score}</div>
@@ -72,6 +72,10 @@ const Celebrity = () => {
 			<CommonFooter/>
 		</Fragment>
 	)
+
+	function timeFormatChange(time){
+		return time.substring(0,10)
+	}
 }
 
 

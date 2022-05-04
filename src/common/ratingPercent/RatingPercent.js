@@ -1,5 +1,6 @@
-import React, { Component,Fragment } from "react"
+import React from "react"
 import style from "./ratingPercent.styl"
+import PropTypes from "prop-types"
 
 const RatingPercent = (props) => {
 	const { commentScoreObj } = props
@@ -8,7 +9,7 @@ const RatingPercent = (props) => {
 	return(
 		<div className={style.ratingContainer}>
 			{
-				StarLengthRes.map((item,index) => {
+				StarLengthRes.length > 0 && StarLengthRes.map((item,index) => {
 					return <div className={style.item} key={index}>
 						<div className={style.label}>{(-5 + index) * -1}星</div>
 						<div className={style.line} style={{"width":item}}/>
@@ -75,5 +76,15 @@ const RatingPercent = (props) => {
 // 		return[this.props.commentScoreObj["10"],this.props.commentScoreObj["8"],this.props.commentScoreObj["6"],this.props.commentScoreObj["4"],this.props.commentScoreObj["2"]]
 // 	}
 // }
+
+//类型检查
+RatingPercent.propTypes = {
+	commentScoreObj :PropTypes.object,
+}
+
+RatingPercent.defaultProps = {
+	commentScoreObj : {}
+}
+
 
 export default RatingPercent;

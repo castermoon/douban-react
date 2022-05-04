@@ -2,6 +2,7 @@ import React,{useState} from "react"
 import style from "./movieCommentWindow.styl"
 import store from "../../store";
 import axios from "axios"
+import PropTypes from "prop-types"
 
 const MovieCommentWindow = (props) => {
 	const myLabelList = setLabelInitialState(["悬疑","推理","治愈","推的","大萨达","啊啊啊","抖动","zz","学习","dd","打得"]);
@@ -9,11 +10,11 @@ const MovieCommentWindow = (props) => {
 	const [ myLabelStatusList, setMyLabelStatusList] = useState(myLabelList)
 	const [ usedLabelStatusList, setUsedLabelStatusList] = useState(usedLabelList)
 	const [ labelInput, setLabelInput] = useState("")
-	const [ scoreInput, setScoreInput] = useState("off")
+	const [ scoreInput, setScoreInput] = useState(0)
 	const [ shortCommentContentInput, setShortCommentContentInput] = useState("")
 	const [ onlyMeInput, setOnlyMeInput] = useState("off")
 	const [ isShareInput, setIsShareInput] = useState("on")
-	const [ statusInput, setStatusInput] = useState("on")
+	const [ statusInput, setStatusInput] = useState("1")
 	const [ userInfo,setUserInfo] = useState(null)
 
 
@@ -31,14 +32,17 @@ const MovieCommentWindow = (props) => {
 			</div>
 			<div className={style.windowBody}>
 				<div className={style.windowCheckboxList}>
-					<div className={style.windowCheckboxItem}><input type="radio" value="1" name="isLooked"/>看过</div>
-					<div className={style.windowCheckboxItem}><input type="radio" value="0" name="isLooked"/>想看</div>
-					<div className={style.scoreInputWrapper}>评分(1-5)
-						<input className={style.scoreInput}  type="number" step="1" min="1" max="5"
-									 onChange={handleScoreInputChange}
-									 value={scoreInput}
-						/>
-					</div>
+					<div className={style.windowCheckboxItem}><input type="radio" value="1" name="isLooked" onChange={handleStatusInputChange}/>看过</div>
+					<div className={style.windowCheckboxItem}><input type="radio" value="0" name="isLooked" onChange={handleStatusInputChange}/>想看</div>
+					{
+						statusInput === "1" &&
+						<div className={style.scoreInputWrapper}>评分(1-5)
+							<input className={style.scoreInput}  type="number" step="1" min="1" max="5"
+										 onChange={handleScoreInputChange}
+										 value={scoreInput}
+							/>
+						</div>
+					}
 				</div>
 				<div>标签(多个标签用空格分隔):</div>
 				<input
@@ -50,7 +54,7 @@ const MovieCommentWindow = (props) => {
 					<div className={style.windowLabelLeft}>我的标签:</div>
 					<div className={style.windowLabelList}>
 						{
-							myLabelStatusList.map((item,index)=>{
+							myLabelStatusList.length > 0 && myLabelStatusList.map((item,index)=>{
 								return <span className={[style.windowLabelItem,item.status ? style.isActive : ""].join(" ")} key={index} onClick={()=>AddLabel(item)}>{item.name}</span>
 							})
 						}
@@ -60,7 +64,7 @@ const MovieCommentWindow = (props) => {
 					<div className={style.windowLabelLeft}>常用标签:</div>
 					<div className={style.windowLabelList}>
 						{
-							usedLabelStatusList.map((item,index)=>{
+							usedLabelStatusList.length > 0 && usedLabelStatusList.map((item,index)=>{
 								return <span className={[style.windowLabelItem,item.status ? style.isActive : ""].join(" ")} key={index} onClick={()=>AddLabel(item)}>{item.name}</span>
 							})
 						}
@@ -92,6 +96,7 @@ const MovieCommentWindow = (props) => {
 	}
 
 	function handleScoreInputChange(e){
+		e.stopPropagation()
 		const value = e.target.value
 		setScoreInput(value)
 	}
@@ -114,7 +119,7 @@ const MovieCommentWindow = (props) => {
 	}
 
 	function handleStatusInputChange(e){
-		const value = e.target.value
+		let value = e.target.value
 		setStatusInput(value)
 	}
 
@@ -168,5 +173,17 @@ const MovieCommentWindow = (props) => {
 		})
 	}
 }
+
+//类型检查
+MovieCommentWindow.propTypes = {
+	WindowIsShow :PropTypes.bool,
+	closeWindow :PropTypes.func.isRequired,
+	movie_id :PropTypes.number
+}
+
+MovieCommentWindow.defaultProps = {
+	WindowIsShow :false
+}
+
 
 export default MovieCommentWindow

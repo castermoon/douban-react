@@ -1,6 +1,8 @@
 import style from "./pagination.styl"
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import PropTypes from "prop-types"
+
 const Pagination = (props) => {
 	const params = useParams()
 	const { page,movie_id,commentType ="" } = params
@@ -18,7 +20,7 @@ const Pagination = (props) => {
 			<div className={[style.prev,currentPage > 1 ? style.isActive: ""].join(" ")} onClick={prevPageClick}>《前页</div>
 			<ul className={style.pageList}>
 				{
-					pageList.map((item,index) => {
+					pageList.length > 0 && pageList.map((item,index) => {
 						return <li className={[style.pageListItem,(index+1) === currentPage ? style.isActive : ""].join(" ")}
 											 onClick={() => {pageListClick(item)}}
 											 key={index}>
@@ -72,17 +74,13 @@ const Pagination = (props) => {
 	}
 }
 
-// //类型检查
-// Pagination.propTypes = {
-// 	photoBox:PropTypes.array,
-// 	height:PropTypes.string,
-// 	width:PropTypes.string
-// }
-//
-// Pagination.defaultProps = {
-// 	photoBox:[],
-// 	height:'0',
-// 	width:"115px"
-// }
+//类型检查
+Pagination.propTypes = {
+	pageName:PropTypes.string
+}
+
+Pagination.defaultProps = {
+	pageName:""
+}
 
 export default Pagination

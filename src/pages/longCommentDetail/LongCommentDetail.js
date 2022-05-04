@@ -4,7 +4,7 @@ import BaseBody from "../../common/baseBody/BaseBody";
 import style from "./longCommentDetail.styl"
 import CommonFooter from "../../common/commonFooter/CommonFooter";
 import axios from "axios"
-import {Link,useParams,useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import store from "../../store";
 import CommonMovieData from "../../common/commonMovieData/CommonMovieData";
 import Star from "../../common/star/Star";
@@ -73,7 +73,7 @@ const LongCommentDetail = () => {
 						</div>
 						<ul className={style.respond_list}>
 							{
-								longCommentDetailRes.map((item,index) => {
+								longCommentDetailRes.length > 0 && longCommentDetailRes.map((item,index) => {
 									return 	<li className={style.respond_item}  key={item.id} >
 										<div className={style.respond_item_left}>
 											<img className={style.respond_item_icon} src="https://img2.doubanio.com/icon/up208248294_1.jpg"/>
@@ -81,7 +81,7 @@ const LongCommentDetail = () => {
 										<div className={style.respond_item_right}>
 											<div className={style.respond_user_info}>
 												<a  href="#" className={style.respond_user_name}>{item.firstRes_name}</a>
-												<div className={style.respond_date}>{item.firstRes_date }</div>
+												<div className={style.respond_date}>{timestampChange(item.firstRes_date) }</div>
 											</div>
 											<div className={style.respond_content}>{item.firstRes_content}</div>
 											<div className={style.respond_item_right_bottom} >
@@ -95,7 +95,7 @@ const LongCommentDetail = () => {
 											}
 											<ul className={style.resRes_list}>
 												{
-													item.secondResList.map((secondResItem,index2) => {
+													item.secondResList.length > 0 && item.secondResList.map((secondResItem,index2) => {
 														return <li className={style.resRes_item} key={secondResItem.secondRes_id}>
 															<div className={style.resRes_item_left}>
 																<img className={style.resRes_item_icon} src="https://img2.doubanio.com/icon/up208248294_1.jpg"/>
@@ -247,6 +247,17 @@ const LongCommentDetail = () => {
 			})
 		})
 		setLongCommentDetailRes(cloneLongCommentDetailRes)
+	}
+
+	function timestampChange(timestamp) {
+		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		var Y = date.getFullYear() + '-';
+		var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		var D = date.getDate() + ' ';
+		var h = date.getHours() + ':';
+		var m = date.getMinutes() + ':';
+		var s = date.getSeconds();
+		return Y+M+D+h+m+s;
 	}
 }
 

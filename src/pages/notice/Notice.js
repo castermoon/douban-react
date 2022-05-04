@@ -26,7 +26,7 @@ const Notice = () => {
 				left={
 					<ul className={style.noticeList}>
 						{
-							noticeList.map(item => {
+							noticeList.length > 0 && noticeList.map(item => {
 								return <li className={style.noticeListItem} key={item.id}>
 								<a  className={style.replierName}>{ item.replierName }</a>回复了您的帖子<Link className={style.longCommentName} to={`/longCommentDetail/${item.longComment_id}/${item.scrollTop}`} >{ item.title }</Link>
 								<div className={style.noRemind} onClick={() => {delNotice(item.id)}}>不再提醒</div>
@@ -35,9 +35,6 @@ const Notice = () => {
 						}
 
 					</ul>
-				}
-				right={
-					<div>2</div>
 				}
 			/>
 			</Fragment>

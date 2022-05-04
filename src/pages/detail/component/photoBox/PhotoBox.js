@@ -9,7 +9,7 @@ const PhotoBox = (props) => {
 	return(
 		<ul className={[style.photoBox,mixins.clearfix].join(" ")}>
 			{
-				photoBox.map(item => {
+				photoBox.length > 0 && photoBox.map(item => {
 					return <li className={style.photoBoxItem} style={{"width":width}} key={item.id}>
 						<div className={style.imgWrapper} style={{"height":height,"width":width}}>
 							<Link to={"/detail/"+item.id} ><img src={item.cover}/></Link>

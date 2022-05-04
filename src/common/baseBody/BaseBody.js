@@ -1,5 +1,6 @@
 import React from "react"
 import style from "./basebody.styl"
+import PropTypes from "prop-types"
 
 const BaseBody = (props) => {
 	return(
@@ -19,4 +20,18 @@ const BaseBody = (props) => {
 		</div>
 	)
 }
+
+//类型检查
+BaseBody.propTypes = {
+	title:PropTypes.string,
+	left:PropTypes.element,
+	right:PropTypes.element
+}
+
+BaseBody.defaultProps = {
+	title:"",
+	left:"",
+	right:<span/>
+}
+
 export default BaseBody;

@@ -1,8 +1,9 @@
-import React, { Component,Fragment } from "react"
+import React, { Fragment } from "react"
 import style from "./photoList.styl"
 import { Navigation, Pagination } from 'swiper';
-import { Link,useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Swiper, SwiperSlide } from 'swiper/react';
+import PropTypes from "prop-types"
 
 // Import Swiper styles
 import 'swiper/css';
@@ -60,6 +61,14 @@ const PhotoList = (props) => {
 			}
 		</Swiper>
 	}
+}
+//类型检查
+PhotoList.propTypes = {
+	PhotoList :PropTypes.array,
+}
+
+PhotoList.defaultProps = {
+	PhotoList : []
 }
 
 export default PhotoList;

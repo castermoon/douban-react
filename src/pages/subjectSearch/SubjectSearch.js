@@ -40,13 +40,13 @@ const SubjectSearch = () => {
 					<Fragment>
 						<ul className={style.searchList}>
 							{
-								movieContentData.map(item => {
+								movieContentData.length > 0 && movieContentData.map(item => {
 									return 	<li className={style.searchItem} key={item.id}>
 										<div className={style.searchItemLeft}>
 											<img src={item.cover}/>
 										</div>
 										<div className={style.searchItemRight}>
-											<Link to={"/detail/"+item.id} className={style.movieName}>{item.name} ({item.time})</Link>
+											<Link to={"/detail/"+item.id} className={style.movieName}>{item.name} {item.time}</Link>
 											<div className={style.starWrapper}><Star score={item.score}/></div>
 											<span className={style.score}>{item.score}</span>
 											<p className={style.movieDesc}>{item.country}/{item.type}/{item.name}//{item.timeLen}</p>
@@ -57,13 +57,13 @@ const SubjectSearch = () => {
 						</ul>
 						<ul className={style.searchList}>
 							{
-								celebrityContentData.map(item => {
+								celebrityContentData.length > 0 && celebrityContentData.map(item => {
 									return 	<li className={style.searchItem} key={item.id}>
 										<div className={style.searchItemLeft}>
 											<img src={item.icon}/>
 										</div>
 										<div className={style.searchItemRight}>
-											<Link to={"/celebrity/"+item.id} className={style.celebrityName}>{item.name} ({item.time})</Link>
+											<Link to={"/celebrity/"+item.id} className={style.celebrityName}>{item.name} {item.time}</Link>
 											<p className={style.movieDesc}>{item.vocation}/{item.birth}</p>
 										</div>
 									</li>
@@ -71,9 +71,6 @@ const SubjectSearch = () => {
 							}
 						</ul>
 					</Fragment>
-				}
-				right={
-					2
 				}
 			/>
 			<CommonFooter/>

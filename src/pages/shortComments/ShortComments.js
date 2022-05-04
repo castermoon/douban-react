@@ -5,10 +5,9 @@ import style from "./shortComments.styl"
 import CommonFooter from "../../common/commonFooter/CommonFooter";
 import axios from "axios"
 import Star from "../../common/star/Star";
-import {Link,useParams,useNavigate } from "react-router-dom"
+import {useParams,useNavigate } from "react-router-dom"
 import Pagination from "../../common/pagination/Pagination";
 import CommonMovieData from "../../common/commonMovieData/CommonMovieData";
-import store from "../../store";
 import MovieCommentWindow from "../../common/movieCommentWindow/MovieCommentWindow";
 const ShortComments = () => {
 	const [data, setData] = useState({
@@ -63,7 +62,7 @@ const ShortComments = () => {
 								</div>
 								<ul className={style.commentList}>
 									{
-										commentList.map(item => {
+										commentList.length > 0 && commentList.map(item => {
 											return <li className={style.commentListItem} key={item.id}>
 												<div className={style.commentDesc}>
 													<div className={style.commentDescHeader}>
@@ -76,7 +75,7 @@ const ShortComments = () => {
 																<Star score={item.score}/>
 															</div>
 														}
-														<span className={style.date}>{item.date}</span>
+														<span className={style.date}>{timestampChange(item.date)}</span>
 													</div>
 													<div className={style.commentContent}>
 														{item.content}
@@ -114,6 +113,17 @@ const ShortComments = () => {
 
 	function closeWindow(){
 		setWindowIsShow(false)
+	}
+
+	function timestampChange(timestamp) {
+		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		var Y = date.getFullYear() + '-';
+		var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		var D = date.getDate() + ' ';
+		var h = date.getHours() + ':';
+		var m = date.getMinutes() + ':';
+		var s = date.getSeconds();
+		return Y+M+D+h+m+s;
 	}
 
 }

@@ -1,4 +1,6 @@
 import React, { Component } from "react"
+import PropTypes from "prop-types"
+
 import style from "./bannerSwiper.styl"
 import { Link } from "react-router-dom"
 // import Swiper core and required modules
@@ -24,7 +26,7 @@ const BannerSwiper = (props) => {
 				pages(PhotoList).map((page,index) => {
 					return <SwiperSlide key={index}>
 						{ page.map((item) => {
-							return <Link to={`/detail/${item.id}`} key={item.id}>
+							return <Link to={`/detail/${item.id}`} key={item.id} className={style.item}>
 									<div className={style.item} key={item.id}>
 										<div className={style.icon}><img src={item.cover}/></div>
 										<div className={style.name}>{item.name}</div>
@@ -69,6 +71,14 @@ const BannerSwiper = (props) => {
 			</div>
 		</div>
 	)
+}
+//类型检查
+BannerSwiper.propTypes = {
+	PhotoList :PropTypes.array,
+}
+
+BannerSwiper.defaultProps = {
+	commentScoreObj : []
 }
 
 

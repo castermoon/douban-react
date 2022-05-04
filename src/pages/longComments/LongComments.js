@@ -34,11 +34,11 @@ const LongComments = () => {
 				left={
 					<Fragment>
 						<div className={style.topTab}>
-							<Link to="/" className={style.writeLongComment} onClick={ writeLongComment }>我来写评论</Link>
+							<Link to={`/writeLongComment/${movie_id}`} className={style.writeLongComment}	>我来写评论</Link>
 						</div>
 						<ul className={style.longCommentsList}>
 							{
-								longCommentList.map(item => {
+								longCommentList.length > 0 && longCommentList.map(item => {
 									return <li className={style.longCommentsListItem} key={item.id}>
 										<div className={style.longCommentsListItemHeader}>
 											<img className={style.icon} src="https://img2.doubanio.com/icon/u155190344-21.jpg"/>
@@ -46,7 +46,7 @@ const LongComments = () => {
 											<div className={style.starWrapper}>
 												<Star score={item.score}/>
 											</div>
-											<div className={style.date}>{item.date}</div>
+											<div className={style.date}>{timestampChange(item.date)}</div>
 										</div>
 										<Link to={`/longCommentDetail/${item.id}/0`} className={style.longCommentsListItemTitle}>{ item.title }</Link>
 										{ item.spoiler && <div className={style.Spoiler}>| 这篇影评可能有剧透</div> }
@@ -67,8 +67,16 @@ const LongComments = () => {
 			<CommonFooter/>
 		</Fragment>
 	)
-	function writeLongComment(){
 
+	function timestampChange(timestamp) {
+		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		var Y = date.getFullYear() + '-';
+		var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		var D = date.getDate() + ' ';
+		var h = date.getHours() + ':';
+		var m = date.getMinutes() + ':';
+		var s = date.getSeconds();
+		return Y+M+D+h+m+s;
 	}
 }
 

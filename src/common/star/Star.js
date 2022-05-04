@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import style from "./star.styl"
+import PropTypes from "prop-types"
 
 const Star = (props) => {
 	const { score } = props
@@ -7,7 +8,7 @@ const Star = (props) => {
 		<div className={style.star}>
 			{
 				itemClasses(score).map((item,index) =>{
-					return <div className={[style.starItem,style[item]].join(" ")} key={index}></div>
+					return <div className={[style.starItem,style[item]].join(" ")} key={index}/>
 				})
 			}
 		</div>
@@ -34,4 +35,14 @@ const Star = (props) => {
 		return arr
 	}
 }
+
+//类型检查
+Star.propTypes = {
+	score :PropTypes.number,
+}
+
+Star.defaultProps = {
+	score :0,
+}
+
 export default Star;

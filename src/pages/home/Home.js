@@ -1,4 +1,4 @@
-import React, { Component,Fragment,useState, useEffect } from "react"
+import React, { Fragment,useState, useEffect } from "react"
 import CommonHeader from "../../common/commonHeader/CommonHeader";
 import BaseBody from "../../common/baseBody/BaseBody";
 import BannerSwiper from "./components/bannerSwiper/BannerSwiper";
@@ -6,6 +6,8 @@ import style from "./home.styl"
 import CommonFooter from "../../common/commonFooter/CommonFooter";
 import PhotoList from "./components/photoList/PhotoList";
 import axios from "axios"
+
+
 const Home = () => {
 	const [data, setData] = useState({
 		weekendList:[],
@@ -133,5 +135,7 @@ const Home = () => {
 // 		)
 // 	}
 // }
+
+
 
 export default Home;

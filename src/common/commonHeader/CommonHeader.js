@@ -69,4 +69,6 @@ const CommonHeader = () => {
 	}
 
 }
+
+
 export default CommonHeader;

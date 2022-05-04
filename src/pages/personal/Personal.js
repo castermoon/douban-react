@@ -51,7 +51,7 @@ const Personal = () => {
 						<CommonTitle  title={'我的评论'} content={'评论'} link={"/"}/>
 						<ul className={style.my_comments_list}>
 							{
-								userLongComments.map(item => {
+								userLongComments.length > 0 && userLongComments.map(item => {
 									return <li key={item.id}  className={style.my_comments_item}>
 										<div className={style.work_cover_wrapper}><img className={style.work_cover}  src={item.cover}/></div>
 										<div className={style.my_comments_item_right}>

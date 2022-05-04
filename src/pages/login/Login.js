@@ -1,7 +1,7 @@
 import React, { Fragment,useState, useEffect } from "react"
 import style from "./login.styl"
 import axios from "axios"
-import {Link,useParams,useNavigate } from "react-router-dom"
+import {Link,useNavigate } from "react-router-dom"
 import CommonTopHeader from "../../common/commonTopHeader/CommonTopHeader";
 import store from "../../store";
 

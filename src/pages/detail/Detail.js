@@ -52,7 +52,7 @@ const Detail = () => {
 								<CommonLabel label="官方网站" content={movieData.web}/>
 								<CommonLabel label="制片国家/地区" content={movieData.country}/>
 								<CommonLabel label="语言" content={movieData.language}/>
-								<CommonLabel label="上映时间" content={movieData.time}/>
+								{ movieData.time && <CommonLabel label="上映时间" content={timeFormatChange(movieData.time)}/>}
 								<CommonLabel label="片长" content={movieData.timeLen}/>
 								<CommonLabel label="别名" content={movieData.anotherName}/>
 								<CommonLabel label="IMDB链接" content={movieData.indbLink}/>
@@ -80,10 +80,9 @@ const Detail = () => {
 						<CommonTitle title={"喜欢这部电影的人也喜欢"}/>
 						<PhotoBox photoBox={maybeLikeList} height={'163px'}/>
 						<CommonTitle title={movieData.name + "的短评"} content={`全部${movieData.commentsCount}条`} link={`/shortComments/${movieData.id}/1/all`}/>
-						<CommonTitle title={movieData.name + "的长评"} content={`全部${movieData.commentsCount}条`} link={`/longComments/${movieData.id}/1`}/>
+						<CommonTitle title={movieData.name + "的长评"} content={`全部${movieData.longCommentsCount}条`} link={`/longComments/${movieData.id}/1`}/>
 					</Fragment>
 				}
-				right={<div>2</div>}
 			/>
 			<MovieCommentWindow
 				movie_id={movieData.id}
@@ -101,6 +100,12 @@ const Detail = () => {
 	function closeWindow(){
 		setWindowIsShow(false)
 	}
+
+	function timeFormatChange(time){
+		return time.substring(0,10)
+	}
+
+
 }
 
 export default Detail;
