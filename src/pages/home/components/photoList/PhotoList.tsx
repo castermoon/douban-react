@@ -3,7 +3,6 @@ import style from "./photoList.styl"
 import { Navigation, Pagination } from 'swiper';
 import { Link } from "react-router-dom"
 import { Swiper, SwiperSlide } from 'swiper/react';
-import PropTypes from "prop-types"
 
 // Import Swiper styles
 import 'swiper/css';
@@ -11,7 +10,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Star from "../../../../common/star/Star";
 
-const PhotoList = (props) => {
+interface PhotoListProps{
+	PhotoList:Object
+}
+
+const PhotoList:React.FC = (props:PhotoListProps) => {
 	const {PhotoList} = props
 	return(
 		<Fragment>
@@ -62,13 +65,6 @@ const PhotoList = (props) => {
 		</Swiper>
 	}
 }
-//类型检查
-PhotoList.propTypes = {
-	PhotoList :PropTypes.array,
-}
 
-PhotoList.defaultProps = {
-	PhotoList : []
-}
 
 export default PhotoList;

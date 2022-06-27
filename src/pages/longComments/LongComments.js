@@ -8,11 +8,43 @@ import {Link,useParams } from "react-router-dom"
 import Pagination from "../../common/pagination/Pagination";
 import CommonMovieData from "../../common/commonMovieData/CommonMovieData";
 import Star from "../../common/star/Star";
-const LongComments = () => {
-	const [data, setData] = useState({
-		CommentsMovieData:{},
-		longCommentList:[],
-	});
+
+interface celebrityType{
+	id:number;
+	name:string;
+}
+
+interface CommentsMovieDataType{
+	id:number;
+	cover:string;
+	type:string;
+	country:string;
+	timeLen:number;
+	spoiler:number;
+	time:string;
+	name:string;
+	director:celebrityType[];
+	toStar:celebrityType[];
+}
+
+
+interface longCommentListItemType{
+	id: number;
+	user_id: number;
+	movie_id: number;
+	content: string;
+	date: number;
+	score: number;
+	spoiler: number;
+	title: string;
+	nickname: string;
+}
+
+const LongComments:React.FC = () => {
+
+	const [CommentsMovieData, setCommentsMovieData] = useState<CommentsMovieDataType>({} as CommentsMovieDataType);
+	const [longCommentList, setLongCommentList] = useState<longCommentListItemType[]>([]);
+
 	const params = useParams()
 
 	const { movie_id, page } = params
@@ -21,11 +53,12 @@ const LongComments = () => {
 	useEffect(()=>{
 		axios.get(`/api/longComments/${movie_id}/${page}`)
 			.then((res)=>{
-				setData(res.data.data)
+				const data = res.data.data
+				setCommentsMovieData(data.CommentsMovieData)
+				setLongCommentList(data.longCommentList)
 			})
 	},[movie_id, page])
 
-	const { CommentsMovieData,longCommentList } = data
 	return(
 		<Fragment>
 			<CommonHeader />
@@ -41,7 +74,7 @@ const LongComments = () => {
 								longCommentList.length > 0 && longCommentList.map(item => {
 									return <li className={style.longCommentsListItem} key={item.id}>
 										<div className={style.longCommentsListItemHeader}>
-											<img className={style.icon} src="https://img2.doubanio.com/icon/u155190344-21.jpg"/>
+											<img className={style.icon} src="https://img2.doubanio.com/icon/u155190344-21.jpg" alt=""/>
 											<div className={style.name}><a href="#">{item.nickname}</a></div>
 											<div className={style.starWrapper}>
 												<Star score={item.score}/>
@@ -68,7 +101,7 @@ const LongComments = () => {
 		</Fragment>
 	)
 
-	function timestampChange(timestamp) {
+	function timestampChange(timestamp:number) {
 		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
 		var Y = date.getFullYear() + '-';
 		var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';

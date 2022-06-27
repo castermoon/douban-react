@@ -55,7 +55,6 @@ const Login = () => {
 		</Fragment>
 	)
 
-
 	function switchTab(index){
 		setTabShow(index)
 		setUsername("")
@@ -99,7 +98,7 @@ const Login = () => {
 	}
 
 	function registerSucc(res){
-		if(res.data.errno == 0){
+		if(res.data.errno === 0){
 			alert("注册成功")
 			navigate(`/personal/${res.data.data.id}`)
 		}else {

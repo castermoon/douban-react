@@ -1,4 +1,4 @@
-import React, { Fragment,Component,useEffect,useState } from "react"
+import React, { Fragment,useEffect,useState } from "react"
 import CommonHeader from "../../common/commonHeader/CommonHeader";
 import BaseBody from "../../common/baseBody/BaseBody";
 import CommonFooter from "../../common/commonFooter/CommonFooter";

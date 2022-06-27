@@ -22,7 +22,7 @@ const Personal = () => {
 				setUserInfo(res.data.data.userInfo)
 				setUserLongComments(res.data.data.userLongComments)
 			})
-	},[])
+	},[user_id])
 
 
 	return(
