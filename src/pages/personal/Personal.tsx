@@ -8,12 +8,33 @@ import axios from "axios"
 import CommonTitle from "../../common/commonTitle/CommonTitle";
 import Star from "../../common/star/Star";
 import CommonFooter from "../../common/commonFooter/CommonFooter";
-const Personal = () => {
+interface userInfoType{
+	id: number;
+	username: string;
+	password: string;
+	nickname: string;
+}
+
+interface userLongCommentItemType{
+	id: number;
+	user_id: number;
+	movie_id: number;
+	content: string;
+	date: number;
+	score: number;
+	spoiler: number;
+	title: string;
+	movie_name: string;
+	cover: string;
+	nickName: string;
+}
+
+const Personal:React.FC = () => {
 
 	const params = useParams()
 	const { user_id } = params
-	const [userInfo,setUserInfo] = useState({});
-	const [userLongComments, setUserLongComments] = useState([]);
+	const [userInfo,setUserInfo] = useState<userInfoType>({} as userInfoType);
+	const [userLongComments, setUserLongComments] = useState<userLongCommentItemType[]>([]);
 
 	//getData
 	useEffect(()=>{

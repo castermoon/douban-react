@@ -1,5 +1,4 @@
-import React, { Component } from "react"
-import PropTypes from "prop-types"
+import React  from "react"
 
 import style from "./bannerSwiper.styl"
 import { Link } from "react-router-dom"
@@ -13,9 +12,19 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const BannerSwiper = (props) => {
-	const { PhotoList } = props
+interface movieItem{
+	cover:string,
+	id:number,
+	name:string,
+	score:number
+}
 
+interface propsType{
+	PhotoList:movieItem[]
+}
+
+const BannerSwiper:React.FC<propsType> = (props) => {
+	const { PhotoList } = props
 	const getSwiper =() => {
 		return <Swiper
 			modules={[Navigation, Pagination,]}
@@ -39,9 +48,9 @@ const BannerSwiper = (props) => {
 		</Swiper>
 	}
 
-	const pages =(PhotoList) => {
-		let pages = []
-		PhotoList.forEach((item,index)=>{
+	const pages =(PhotoList:movieItem[]):movieItem[][] => {
+		let pages:movieItem[][] = []
+		PhotoList.forEach((item,index) =>{
 			let page = Math.floor(index / 10)
 			if (!pages[page]){
 				pages[page] = []
@@ -71,14 +80,6 @@ const BannerSwiper = (props) => {
 			</div>
 		</div>
 	)
-}
-//类型检查
-BannerSwiper.propTypes = {
-	PhotoList :PropTypes.array,
-}
-
-BannerSwiper.defaultProps = {
-	commentScoreObj : []
 }
 
 

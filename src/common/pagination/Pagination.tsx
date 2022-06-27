@@ -1,14 +1,17 @@
 import style from "./pagination.styl"
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import PropTypes from "prop-types"
 
-const Pagination = (props) => {
+interface PropsType{
+	pageName:string;
+}
+
+const Pagination:React.FC<PropsType> = (props) => {
 	const params = useParams()
 	const { page,movie_id,commentType ="" } = params
 	const navigate = useNavigate()
 	const [pageList, setPageList] = useState([1,2,3,4,5,6,7,8,9,'...']);
-	const [currentPage, setCurrentPage] = useState(parseInt(page));
+	const [currentPage, setCurrentPage] = useState<number|string>(Number(page));
 
 	useEffect(() => {
 		changePage(pageList,currentPage)
@@ -32,7 +35,7 @@ const Pagination = (props) => {
 			<div className={[style.next, style.isActive].join(" ")} onClick={nextPageClick}>后页》</div>
 		</div>
 	)
-	function pageListClick(pagination){
+	function pageListClick(pagination:(number|string)){
 		if(currentPage === pagination  || pagination === "..."){
 			return
 		}
@@ -40,17 +43,24 @@ const Pagination = (props) => {
 	}
 
 	function nextPageClick(){
-		setCurrentPage(currentPage + 1)
+		if(typeof currentPage === "number"){
+			setCurrentPage(currentPage + 1)
+		}
 	}
 
 	function prevPageClick(){
 		if(currentPage <= 1){
 			return
 		}
-		setCurrentPage(currentPage - 1)
+		if(typeof currentPage === "number"){
+			setCurrentPage(currentPage - 1)
+		}
 	}
 
-	function changePage(pageList,currentPage){
+	function changePage(pageList:(string|number)[],currentPage:(string|number)){
+		if(typeof currentPage === "string"){
+			return
+		}
 		let clonePageList = [...pageList]
 		if(currentPage <= 5){
 			clonePageList = [1,2,3,4,5,6,7,8,9,'...']
@@ -58,6 +68,7 @@ const Pagination = (props) => {
 			let count = currentPage - 5
 			clonePageList.pop()
 			for(let i = 0;i < count;i++){
+				// @ts-ignore
 				clonePageList.push(clonePageList[clonePageList.length-1] + 1)
 			}
 			clonePageList.push('...')
@@ -74,10 +85,7 @@ const Pagination = (props) => {
 	}
 }
 
-//类型检查
-Pagination.propTypes = {
-	pageName:PropTypes.string
-}
+
 
 Pagination.defaultProps = {
 	pageName:""

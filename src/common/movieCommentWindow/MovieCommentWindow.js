@@ -13,7 +13,6 @@ const MovieCommentWindow = (props) => {
 	const [ scoreInput, setScoreInput] = useState(0)
 	const [ shortCommentContentInput, setShortCommentContentInput] = useState("")
 	const [ onlyMeInput, setOnlyMeInput] = useState("off")
-	const [ isShareInput, setIsShareInput] = useState("on")
 	const [ statusInput, setStatusInput] = useState("1")
 	const [ userInfo,setUserInfo] = useState(null)
 

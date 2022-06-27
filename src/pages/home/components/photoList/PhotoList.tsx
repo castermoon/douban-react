@@ -10,11 +10,18 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Star from "../../../../common/star/Star";
 
-interface PhotoListProps{
-	PhotoList:Object
+interface movieItem{
+	cover:string,
+	id:number,
+	name:string,
+	score:number
 }
 
-const PhotoList:React.FC = (props:PhotoListProps) => {
+interface iProps{
+	PhotoList:movieItem[],
+}
+
+const PhotoList = (props:iProps) => {
 	const {PhotoList} = props
 	return(
 		<Fragment>
@@ -31,18 +38,8 @@ const PhotoList:React.FC = (props:PhotoListProps) => {
 		</Fragment>
 	)
 
-	function pages(PhotoList) {
-		let pages = []
-		PhotoList.forEach((item,index)=>{
-			let page = Math.floor(index / 5)
-			if (!pages[page]){
-				pages[page] = []
-			}
-			pages[page].push(item)
-		})
-		return pages
-	}
-	function getSwiper(){
+
+	function getSwiper () {
 		return <Swiper
 			modules={[Navigation, Pagination,]}
 			navigation
@@ -63,6 +60,18 @@ const PhotoList:React.FC = (props:PhotoListProps) => {
 				})
 			}
 		</Swiper>
+	}
+
+	function pages(PhotoList:movieItem[]):movieItem[][] {
+		let pages:movieItem[][] = []
+		PhotoList.forEach((item,index) =>{
+			let page = Math.floor(index / 5)
+			if (!pages[page]){
+				pages[page] = []
+			}
+			pages[page].push(item)
+		})
+		return pages
 	}
 }
 

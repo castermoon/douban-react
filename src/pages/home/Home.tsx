@@ -7,19 +7,12 @@ import CommonFooter from "../../common/commonFooter/CommonFooter";
 import PhotoList from "./components/photoList/PhotoList";
 import axios from "axios"
 
-// interface weekendListItem{
-// 	name:string,
-// 	id:number
-// }
-//
-// interface PhotoListItem{
-// 	cover:string,
-// 	id:number,
-// 	name:string,
-// 	score:number
-// }
+interface weekendListItem{
+	name:string,
+	id:number
+}
 
-const Home = () => {
+const Home:React.FC = () => {
 	const [data, setData] = useState({
 		weekendList:[],
 		PhotoList:[]
@@ -43,7 +36,7 @@ const Home = () => {
 				left={
 					<Fragment>
 						<PhotoList PhotoList={data.PhotoList}/>
-						<BannerSwiper PhotoList={data.PhotoList}/>
+						<BannerSwiper PhotoList={data.PhotoList} />
 					</Fragment>
 				}
 				right={
@@ -58,7 +51,7 @@ const Home = () => {
 							</div>
 							<ul className={style.list}>
 								{
-									data.weekendList.map((item,index) => {
+									data.weekendList.map((item:weekendListItem,index) => {
 										return <li className={style.listItem} key={item.id}><span className={style.num}>{index+1}&nbsp;</span>{item.name}</li>
 									})
 								}

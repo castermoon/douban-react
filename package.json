@@ -10,6 +10,10 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "@types/react-router-dom": "^5.3.3",
     "axios": "^0.27.2",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
@@ -46,6 +50,7 @@
     "react-dom": "^18.0.0",
     "react-refresh": "^0.11.0",
     "react-router-dom": "^6.0.2",
+    "redux": "^4.2.0",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
     "sass-loader": "^12.6.0",
@@ -54,9 +59,10 @@
     "style-loader": "^3.3.1",
     "stylus": "^0.57.0",
     "stylus-loader": "^6.2.0",
-    "swiper": "^8.1.4",
+    "swiper": "^8.2.4",
     "tailwindcss": "^3.0.2",
     "terser-webpack-plugin": "^5.2.5",
+    "typescript-plugin-css-modules": "^3.4.0",
     "web-vitals": "^2.1.4",
     "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
@@ -64,7 +70,7 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node scripts/start.js ",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
@@ -141,6 +147,9 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.17.12",
+    "typescript": "^4.7.4"
   }
 }
-

@@ -5,7 +5,7 @@ import {Link,useNavigate } from "react-router-dom"
 import CommonTopHeader from "../../common/commonTopHeader/CommonTopHeader";
 import store from "../../store";
 
-const Login = () => {
+const Login:React.FC = () => {
 	let navigate = useNavigate()
 
 	const [tabShow, setTabShow] = useState(1);
@@ -55,7 +55,7 @@ const Login = () => {
 		</Fragment>
 	)
 
-	function switchTab(index){
+	function switchTab(index:number){
 		setTabShow(index)
 		setUsername("")
 		setPassword("")
@@ -63,7 +63,7 @@ const Login = () => {
 		setRegisterPassword("")
 	}
 
-	function loginClick(){
+	function loginClick():void{
 		axios.post('/api/user/login',{
 			username:username,
 			password:password
@@ -74,7 +74,7 @@ const Login = () => {
 			})
 	}
 
-	function loginSucc(res){
+	function loginSucc(res:any){
 		if(!res.data.data){
 			return
 		}
@@ -97,7 +97,7 @@ const Login = () => {
 			})
 	}
 
-	function registerSucc(res){
+	function registerSucc(res:any){
 		if(res.data.errno === 0){
 			alert("注册成功")
 			navigate(`/personal/${res.data.data.id}`)
@@ -106,22 +106,22 @@ const Login = () => {
 		}
 	}
 
-	function usernameInputChange(e){
+	function usernameInputChange(e: React.ChangeEvent<HTMLInputElement>){
 		const value = e.target.value
 		setUsername(value)
 	}
 
-	function registerNameInputChange(e){
+	function registerNameInputChange(e: React.ChangeEvent<HTMLInputElement>){
 		const value = e.target.value
 		setRegisterName(value)
 	}
 
-	function passwordInputChange(e){
+	function passwordInputChange(e:React.ChangeEvent<HTMLInputElement>){
 		const value = e.target.value
 		setPassword(value)
 	}
 
-	function registerPasswordInputChange(e){
+	function registerPasswordInputChange(e:React.ChangeEvent<HTMLInputElement>){
 		const value = e.target.value
 		setRegisterPassword(value)
 	}

@@ -8,11 +8,33 @@ import axios from "axios"
 import mixins from "../../assets/style/mixins.styl"
 import CommonLabel from "../../common/commonLabel/CommonLabel";
 
-const Celebrity = () => {
-	const [data, setData] = useState({
-		celebrityData:{},
-		recentWorksListData:[]
-	});
+interface recentWorksItemType{
+	id:number;
+	name:string;
+	time:string;
+	score:number;
+	cover:string;
+}
+interface celebrityType{
+	id:string;
+	name:string;
+	icon:string;
+	sex:number;
+	constellation:string;
+	birth:string;
+	vocation:string;
+	anotherName:string;
+	anotherChineseName:string;
+	indbLink:string;
+	web:string;
+	desc:string;
+}
+
+const Celebrity:React.FC = () => {
+
+
+	const [celebrityData,setCelebrityData] = useState<celebrityType>({} as celebrityType)
+	const [recentWorksListData,setRecentWorksListData] = useState<recentWorksItemType[]>([])
 
 	const params = useParams();
 
@@ -20,11 +42,12 @@ const Celebrity = () => {
 	useEffect(()=>{
 		axios.get('/api/celebrity/'+params.celebrity_id)
 			.then((res)=>{
-				setData(res.data.data)
+				let data = res.data.data
+				setCelebrityData(data.celebrityData)
+				setRecentWorksListData(data.recentWorksListData)
 			})
 	},[])
 
-	const { celebrityData,recentWorksListData } = data
 	return(
 		<Fragment>
 			<CommonHeader />
@@ -73,7 +96,7 @@ const Celebrity = () => {
 		</Fragment>
 	)
 
-	function timeFormatChange(time){
+	function timeFormatChange(time:string){
 		return time.substring(0,10)
 	}
 }

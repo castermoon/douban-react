@@ -13,7 +13,7 @@ const CommonMovieData = (props) => {
 		<Fragment>
 			<div className={style.backLink}><Link to={"/detail/"+ movie_id}> 去 { CommentsMovieData.name}的页面</Link></div>
 			<div className={style.movieDetail}>
-				<div className={style.coverWrapper}><img src={CommentsMovieData.cover}/></div>
+				<div className={style.coverWrapper}><img src={CommentsMovieData.cover} alt="电影封面"/></div>
 				<CommonLabel label="导演" content={CommentsMovieData.director} pathName="celebrity"/>
 				<CommonLabel label="主演" content={CommentsMovieData.toStar} pathName="celebrity"/>
 				<CommonLabel label="类型" content={CommentsMovieData.type}/>
