@@ -9,25 +9,59 @@ import {useParams,useNavigate } from "react-router-dom"
 import Pagination from "../../common/pagination/Pagination";
 import CommonMovieData from "../../common/commonMovieData/CommonMovieData";
 import MovieCommentWindow from "../../common/movieCommentWindow/MovieCommentWindow";
+
+interface celebrityType{
+	id:number;
+	name:string;
+}
+
+interface CommentsMovieDataType{
+	id:number;
+	cover:string;
+	type:string;
+	country:string;
+	timeLen:number;
+	spoiler:number;
+	time:string;
+	name:string;
+	director:celebrityType[];
+	toStar:celebrityType[];
+}
+
+interface commentListType{
+	id: number;
+	content: string;
+	date: number;
+	score: number;
+	user_id: number;
+	movie_id: number;
+	status: number;
+	labelList: string;
+	onlyMe: number;
+	isShare: number;
+	nickname: string;
+}
+
 const ShortComments = () => {
-	const [data, setData] = useState({
-		CommentsMovieData:{},
-		commentList:[],
-	});
+
+
+	const [CommentsMovieData, setCommentsMovieData] = useState<CommentsMovieDataType>({} as CommentsMovieDataType);
+	const [commentList, setCommentList] = useState<commentListType[]>([]);
 	const params = useParams(),navigate = useNavigate();
 
 	const { movie_id, page, commentType } = params
-	const [WindowIsShow, setWindowIsShow] = useState(false)
+	const [WindowIsShow, setWindowIsShow] = useState<Boolean>(false)
 
 	//getData
 	useEffect(()=>{
 		axios.get(`/api/comments/${movie_id}/${page}/${commentType}`)
 			.then((res)=>{
-				setData(res.data.data)
+				const data = res.data.data
+				setCommentsMovieData(data.CommentsMovieData)
+				setCommentList(data.commentList)
 			})
 	},[movie_id, page, commentType])
 
-	const { CommentsMovieData,commentList } = data
 	return(
 		<Fragment>
 			<CommonHeader />
@@ -102,11 +136,11 @@ const ShortComments = () => {
 			<CommonFooter/>
 		</Fragment>
 	)
-	function commentTypeChange(e){
+	function commentTypeChange(e:any){
 		const value = e.target.value
 		navigate(`/shortComments/${movie_id}/1/${value}`)
 	}
-	function writeShortComment(e){
+	function writeShortComment(e:any){
 		e.stopPropagation()
 		setWindowIsShow(true)
 	}
@@ -115,7 +149,7 @@ const ShortComments = () => {
 		setWindowIsShow(false)
 	}
 
-	function timestampChange(timestamp) {
+	function timestampChange(timestamp:number) {
 		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
 		var Y = date.getFullYear() + '-';
 		var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';

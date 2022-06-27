@@ -1,9 +1,20 @@
 import React, { Fragment } from "react"
 import style from "./commonLabel.styl"
 import {Link} from "react-router-dom"
-import PropTypes from "prop-types"
 
-const CommonLabel = (props) => {
+
+interface celebrityType{
+	id:number;
+	name:string;
+}
+
+interface PropsType{
+	content?:string | number | celebrityType[];
+	pathName?:string;
+	label:string;
+}
+
+const CommonLabel:React.FC<PropsType> = (props) => {
 	const { content,pathName,label } = props
 	return(
 		<Fragment>
@@ -28,21 +39,10 @@ const CommonLabel = (props) => {
 	)
 }
 
-//类型检查
-CommonLabel.propTypes = {
-	content :PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.array,
-		PropTypes.number,
-	]),
-	pathName :PropTypes.string,
-	label :PropTypes.string
+CommonLabel.defaultProps = {
+	content:""
 }
 
-CommonLabel.defaultProps = {
-	title:"",
-	left:"",
-	right:""
-}
+
 
 export default CommonLabel;

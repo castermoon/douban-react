@@ -4,9 +4,21 @@ import store from "../../store";
 import axios from "axios"
 import PropTypes from "prop-types"
 
-const MovieCommentWindow = (props) => {
-	const myLabelList = setLabelInitialState(["悬疑","推理","治愈","推的","大萨达","啊啊啊","抖动","zz","学习","dd","打得"]);
-	const usedLabelList = setLabelInitialState(["悬疑","推理","警匪"]);
+interface PropsType{
+	WindowIsShow:Boolean;
+	closeWindow:() => void;
+	movie_id:number;
+}
+
+interface labelItemType{
+	name:string;
+	status:boolean;
+}
+
+
+const MovieCommentWindow:React.FC<PropsType> = (props) => {
+	const myLabelList:labelItemType[] = setLabelInitialState(["悬疑","推理","治愈","推的","大萨达","啊啊啊","抖动","zz","学习","dd","打得"]);
+	const usedLabelList:labelItemType[] = setLabelInitialState(["悬疑","推理","警匪"]);
 	const [ myLabelStatusList, setMyLabelStatusList] = useState(myLabelList)
 	const [ usedLabelStatusList, setUsedLabelStatusList] = useState(usedLabelList)
 	const [ labelInput, setLabelInput] = useState("")
@@ -83,54 +95,54 @@ const MovieCommentWindow = (props) => {
 					onChange={handleIsShareInputChange}
 				/>
 				<div className={style.share}>分享到我的广播</div>
-				<div className={style.save} onClick={saveShortComment}>保存</div>
+				<div className={style.save} onClick={  saveShortComment}>保存</div>
 			</div>
 		</div>
 	)
 
 
-	function handleLabelInputChange(e){
+	function handleLabelInputChange(e:any){
 		const value = e.target.value
 		setLabelInput(value)
 	}
 
-	function handleScoreInputChange(e){
+	function handleScoreInputChange(e:any){
 		e.stopPropagation()
-		const value = e.target.value
+		const value = parseInt(e.target.value)
 		setScoreInput(value)
 	}
 
-	function handleShortCommentContentChange(e){
+	function handleShortCommentContentChange(e:any){
 		const value = e.target.value
 		setShortCommentContentInput(value)
 	}
 
-	function handleOnlyMeInputChange(e){
+	function handleOnlyMeInputChange(e:any){
 		console.log(e.target.value)
 		const value = e.target.value
 		setOnlyMeInput(value)
 	}
 
-	function handleIsShareInputChange(e){
+	function handleIsShareInputChange(e:any){
 		// console.log(e.target.hasAttribute("checked"))
 		// const value = e.target.value === "off" ? "on":"off"
 		// setIsShareInput(value)
 	}
 
-	function handleStatusInputChange(e){
+	function handleStatusInputChange(e:any){
 		let value = e.target.value
 		setStatusInput(value)
 	}
 
-	function AddLabel(labelItem){
+	function AddLabel(labelItem:labelItemType){
 		const cloneMyLabelStatusList = JSON.parse(JSON.stringify(myLabelStatusList))
 		const cloneUsedLabelStatusList = JSON.parse(JSON.stringify(usedLabelStatusList))
-		cloneMyLabelStatusList.map((item) => {
+		cloneMyLabelStatusList.map((item:labelItemType) => {
 			if(item.name === labelItem.name){
 				item.status = !item.status
 			}
 		})
-		cloneUsedLabelStatusList.map((item) => {
+		cloneUsedLabelStatusList.map((item:labelItemType) => {
 			if(item.name === labelItem.name){
 				item.status = !item.status
 			}
@@ -144,12 +156,15 @@ const MovieCommentWindow = (props) => {
 		}
 	}
 
-	function saveShortComment(){
+	function saveShortComment(userInfo:any){
+		if(!userInfo){
+			return
+		}
 		axios.post('/api/comments/createComment',{
 			movieId:movie_id,
 			userId:userInfo.userInfo.id,
 			content:shortCommentContentInput,
-			score:parseInt(scoreInput)*2,
+			score:scoreInput * 2,
 			status:1,
 			labelList:"",
 			onlyMe:0,
@@ -166,19 +181,13 @@ const MovieCommentWindow = (props) => {
 		closeWindow()
 	}
 
-	function setLabelInitialState(labelList){
+	function setLabelInitialState(labelList:string[]){
 	  return labelList.map((item) => {
 			return {name:item,status:false}
 		})
 	}
 }
 
-//类型检查
-MovieCommentWindow.propTypes = {
-	WindowIsShow :PropTypes.bool,
-	closeWindow :PropTypes.func.isRequired,
-	movie_id :PropTypes.number
-}
 
 MovieCommentWindow.defaultProps = {
 	WindowIsShow :false

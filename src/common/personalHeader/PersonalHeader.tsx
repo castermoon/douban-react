@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom"
 import style from "./personalHeader.styl"
-const PersonalHeader = () => {
+import React from "react";
+const PersonalHeader:React.FC = () => {
 	return(
 		<div className={style.header}>
 			<div className={style.nav}>

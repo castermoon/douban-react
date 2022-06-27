@@ -1,8 +1,11 @@
-import React, {Component} from "react"
+import React from "react"
 import style from "./star.styl"
-import PropTypes from "prop-types"
 
-const Star = (props) => {
+interface PropsType{
+	score:number
+}
+
+const Star:React.FC<PropsType> = (props) => {
 	const { score } = props
 	return (
 		<div className={style.star}>
@@ -14,7 +17,7 @@ const Star = (props) => {
 		</div>
 	)
 
-	function itemClasses(score){
+	function itemClasses(score:number){
 		let arr = []
 		score = score / 2
 		let onStar = Math.floor(score)
@@ -36,10 +39,7 @@ const Star = (props) => {
 	}
 }
 
-//类型检查
-Star.propTypes = {
-	score :PropTypes.number,
-}
+
 
 Star.defaultProps = {
 	score :0,

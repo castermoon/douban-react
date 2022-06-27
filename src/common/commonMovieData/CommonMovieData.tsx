@@ -4,7 +4,31 @@ import style from "./commonMovieData.styl"
 import CommonLabel from "../commonLabel/CommonLabel";
 import PropTypes from "prop-types"
 
-const CommonMovieData = (props) => {
+interface celebrityType{
+	id:number;
+	name:string;
+}
+
+interface CommentsMovieDataType{
+	id:number;
+	cover:string;
+	type:string;
+	country:string;
+	timeLen:number;
+	spoiler:number;
+	time:string;
+	name:string;
+	director:celebrityType[];
+	toStar:celebrityType[];
+	language?:string;
+}
+
+
+interface PropsType{
+	CommentsMovieData:CommentsMovieDataType
+}
+
+const CommonMovieData:React.FC<PropsType> = (props) => {
 	const params = useParams()
 	const { movie_id } = params
 
@@ -25,18 +49,11 @@ const CommonMovieData = (props) => {
 		</Fragment>
 	)
 
-	function timeFormatChange(time){
+	function timeFormatChange(time: string){
 		return time.substring(0,10)
 	}
 }
 
-//类型检查
-CommonLabel.propTypes = {
-	CommentsMovieData :PropTypes.object
-}
 
-CommonLabel.defaultProps = {
-	CommentsMovieData:{}
-}
 
 export default CommonMovieData

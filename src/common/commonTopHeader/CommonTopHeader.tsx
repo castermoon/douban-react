@@ -3,12 +3,19 @@ import style from "./commonTopHeader.styl"
 import { Link,useNavigate } from "react-router-dom"
 import axios from "axios"
 import store from "../../store";
-const CommonTopHeader = () => {
+
+interface userInfoType{
+	id: number;
+	username: string;
+	password: string;
+	nickname: string;
+}
+
+const CommonTopHeader:React.FC = () => {
 	const navigate = useNavigate()
 
-
 	const [dropMenuShow,setDropMenuShow] = useState(false)
-	const [userInfo,setUserInfo] = useState(null)
+	const [userInfo,setUserInfo] = useState<userInfoType>({} as userInfoType )
 	const [noticeNum,setNoticeNum] = useState(0)
 
 	useEffect(()=>{
@@ -63,8 +70,9 @@ const CommonTopHeader = () => {
 
 	function isLogin(){
 		axios.get('/api/user/loginCheck',{
-		}).then((res) => {
+		}).then((res:any) => {
 			res = res.data
+
 			if(res.errno == 0){
 				setUserInfo(res.data)
 				const action = {
@@ -82,7 +90,7 @@ const CommonTopHeader = () => {
 		axios.get('/api/user/logout',{
 		}).then((res) => {
 			if(res.data.errno == 0){
-				setUserInfo(null)
+				setUserInfo({} as userInfoType)
 
 				const action = {
 					type:"change_user_info",

@@ -8,12 +8,47 @@ import {Link,useParams } from "react-router-dom"
 import Star from "../../common/star/Star";
 
 
+interface movieDatatype{
+	id:number;
+	name:string;
+	cover:string;
+	type:string;
+	web?:string;
+	country:string;
+	language:string;
+	time:string;
+	timeLen:number;
+	anotherName:string;
+	indbLink?: string,
+	brief:string;
+	score:number;
+}
+
+
+
+
+
+interface celebrityDataType{
+	id: number;
+	name: string;
+	icon: string;
+	sex: number;
+	constellation: string;
+	birth: string;
+	vocation: string;
+	anotherName: string;
+	anotherChineseName: string;
+	indbLink: string;
+	web: string;
+	desc:string;
+}
+
 const SubjectSearch = () => {
 	const params = useParams()
 	const { searchContent, searchType } = params
 
-	const [movieContentData, setMovieContentData] = useState([]);
-	const [celebrityContentData, setCelebrityContentData] = useState([]);
+	const [movieContentData, setMovieContentData] = useState<movieDatatype[]>([]);
+	const [celebrityContentData, setCelebrityContentData] = useState<celebrityDataType[]>([]);
 
 	//getData
 	useEffect(()=>{
@@ -63,7 +98,7 @@ const SubjectSearch = () => {
 											<img src={item.icon}/>
 										</div>
 										<div className={style.searchItemRight}>
-											<Link to={"/celebrity/"+item.id} className={style.celebrityName}>{item.name} {item.time}</Link>
+											<Link to={"/celebrity/"+item.id} className={style.celebrityName}>{item.name}</Link>
 											<p className={style.movieDesc}>{item.vocation}/{item.birth}</p>
 										</div>
 									</li>

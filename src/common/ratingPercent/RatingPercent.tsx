@@ -1,8 +1,20 @@
 import React from "react"
 import style from "./ratingPercent.styl"
-import PropTypes from "prop-types"
 
-const RatingPercent = (props) => {
+interface commentScoreObjType{
+	2:string;
+	4:string;
+	6:string;
+	8:string;
+	10:string;
+}
+
+
+interface PropsType{
+	commentScoreObj:commentScoreObjType
+}
+
+const RatingPercent:React.FC<PropsType> = (props) => {
 	const { commentScoreObj } = props
 	const StarLengthRes = StarLength(commentScoreObj)
 	const ratingPercentRes = aRatingPercent(commentScoreObj)
@@ -14,8 +26,7 @@ const RatingPercent = (props) => {
 						<div className={style.label}>{(-5 + index) * -1}星</div>
 						<div className={style.line} style={{"width":item}}/>
 						{
-							ratingPercentRes[index] !==0 &&
-							<div className={style.percent}>{(ratingPercentRes[index] * 50).toFixed(1) + "%"}</div>
+							<div className={style.percent}>{(parseFloat(ratingPercentRes[index]) * 50).toFixed(1) + "%"}</div>
 						}
 					</div>
 				})
@@ -23,17 +34,17 @@ const RatingPercent = (props) => {
 		</div>
 	)
 
-	function	aRatingPercent(commentScoreObj){
+	function aRatingPercent(commentScoreObj:commentScoreObjType){
 		return[commentScoreObj["10"],commentScoreObj["8"],commentScoreObj["6"],commentScoreObj["4"],commentScoreObj["2"]]
 	}
 
-	function StarLength(commentScoreObj) {
+	function StarLength(commentScoreObj:commentScoreObjType) {
 		return [
-			Math.floor(commentScoreObj["10"] * 88) / 2 + 'px',
-			Math.floor(commentScoreObj["8"] * 88) / 2 + 'px',
-			Math.floor(commentScoreObj["6"] * 88) / 2 + 'px',
-			Math.floor(commentScoreObj["4"] * 88) / 2 + 'px',
-			Math.floor(commentScoreObj["2"] * 88) / 2 + 'px'
+			Math.floor(parseFloat(commentScoreObj["10"]) * 88) / 2 + 'px',
+			Math.floor(parseFloat(commentScoreObj["8"]) * 88) / 2 + 'px',
+			Math.floor(parseFloat(commentScoreObj["6"]) * 88) / 2 + 'px',
+			Math.floor(parseFloat(commentScoreObj["4"]) * 88) / 2 + 'px',
+			Math.floor(parseFloat(commentScoreObj["2"]) * 88) / 2 + 'px'
 		]
 	}
 }
@@ -77,13 +88,10 @@ const RatingPercent = (props) => {
 // 	}
 // }
 
-//类型检查
-RatingPercent.propTypes = {
-	commentScoreObj :PropTypes.object,
-}
+
 
 RatingPercent.defaultProps = {
-	commentScoreObj : {}
+	commentScoreObj : {} as commentScoreObjType
 }
 
 

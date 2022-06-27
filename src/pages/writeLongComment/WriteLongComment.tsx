@@ -3,14 +3,22 @@ import style from "./writeLongComment.styl"
 import { Link, useParams,useNavigate  } from "react-router-dom"
 import axios from "axios"
 import store from "../../store";
-const WriteLongComment = () => {
+
+interface userInfoType{
+	id: number;
+	username: string;
+	password: string;
+	nickname: string;
+}
+
+const WriteLongComment:React.FC = () => {
 	const params = useParams()
 	const navigate = useNavigate()
 	const { movie_id } = params
 
 	const [commentTitle, setCommentTitle] = useState("")
 	const [commentContent, setCommentContent] = useState("")
-	const [userInfo, setUserInfo] = useState(store.getState())
+	const [userInfo, setUserInfo] = useState<userInfoType>(store.getState())
 	const [score, setScore] = useState(0)
 	const [spoiler,setSpoiler] = useState(0)
 
@@ -38,7 +46,7 @@ const WriteLongComment = () => {
 					<label className={style.label}>是否剧透:</label>
 					<input type="checkbox" onChange={spoilerCheckBoxChange} value={1}/>
 				</div>
-				<textarea className={style.titleInput} maxLength="200" placeholder="添加标题" rows="1"
+				<textarea  className={style.titleInput} maxLength={200} placeholder="添加标题" rows={1}
 									style={{resize: "none",overflow: "hidden", height: "30px"}}
 									onChange={titleInputChange}
 				/>
@@ -49,7 +57,7 @@ const WriteLongComment = () => {
 		</div>
 	)
 
-	function spoilerCheckBoxChange(e){
+	function spoilerCheckBoxChange(e:any){
 		e.stopPropagation()
 		const target = e.target
 		if(target.hasAttribute("checked")){
@@ -66,29 +74,32 @@ const WriteLongComment = () => {
 		// setScore(value)
 	}
 
-	function scoreInputChange(e){
+	function scoreInputChange(e:any){
 		e.stopPropagation()
-		const value = e.target.value
+		const value = parseInt(e.target.value)
 		setScore(value)
 	}
 
-	function titleInputChange(e){
+	function titleInputChange(e:any){
 		e.stopPropagation()
 		const value = e.target.value
 		setCommentTitle(value)
 	}
 
-	function contentInputChange(e){
+	function contentInputChange(e:any){
 		e.stopPropagation()
 		const value = e.target.value
 		setCommentContent(value)
 	}
 
-	function commentPublish(){
+	function commentPublish(userInfo:any){
+		if(!userInfo){
+			return
+		}
 		axios.post('/api/longComments/createLongComment',{
 			movieId:movie_id,
 			content:commentContent.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' '),
-			score:parseInt(score) * 2,
+			score:score,
 			userId:userInfo.userInfo.id,
 			title:commentTitle,
 			spoiler:spoiler

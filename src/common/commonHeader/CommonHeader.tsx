@@ -47,12 +47,12 @@ const CommonHeader = () => {
 		</Fragment>
 	)
 
-	function searchTypeChange(e){
+	function searchTypeChange(e:any){
 		const value = e.target.value
 		setCurrentSearchType(value)
 	}
 
-	function searchContentChange(e){
+	function searchContentChange(e:any){
 		const value = e.target.value
 		setCurrentSearchContent(value)
 	}
