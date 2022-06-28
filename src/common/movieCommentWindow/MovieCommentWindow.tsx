@@ -1,8 +1,6 @@
 import React,{useState} from "react"
 import style from "./movieCommentWindow.styl"
-import store from "../../store";
 import axios from "axios"
-import PropTypes from "prop-types"
 
 interface PropsType{
 	WindowIsShow:Boolean;
@@ -24,14 +22,11 @@ const MovieCommentWindow:React.FC<PropsType> = (props) => {
 	const [ labelInput, setLabelInput] = useState("")
 	const [ scoreInput, setScoreInput] = useState(0)
 	const [ shortCommentContentInput, setShortCommentContentInput] = useState("")
-	const [ onlyMeInput, setOnlyMeInput] = useState("off")
-	const [ statusInput, setStatusInput] = useState("1")
-	const [ userInfo,setUserInfo] = useState(null)
+	const [ onlyMe, setOnlyMe] = useState(false)
+	const [ status, setStatus] = useState(true)
+	const [ isShare, setIsShare] = useState(false)
 
 
-	store.subscribe(()=>{
-		setUserInfo(store.getState())
-	})
 
 	const { WindowIsShow,closeWindow,movie_id } = props
 	return(
@@ -43,10 +38,12 @@ const MovieCommentWindow:React.FC<PropsType> = (props) => {
 			</div>
 			<div className={style.windowBody}>
 				<div className={style.windowCheckboxList}>
-					<div className={style.windowCheckboxItem}><input type="radio" value="1" name="isLooked" onChange={handleStatusInputChange}/>看过</div>
-					<div className={style.windowCheckboxItem}><input type="radio" value="0" name="isLooked" onChange={handleStatusInputChange}/>想看</div>
+					<div onChange={handleStatusInputChange} style={{display:"inline-block"}}>
+						<div className={style.windowCheckboxItem}><input type="radio" value="看过" name="isLooked" />看过</div>
+						<div className={style.windowCheckboxItem}><input type="radio" value="想看" name="isLooked" />想看</div>
+					</div>
 					{
-						statusInput === "1" &&
+						status  &&
 						<div className={style.scoreInputWrapper}>评分(1-5)
 							<input className={style.scoreInput}  type="number" step="1" min="1" max="5"
 										 onChange={handleScoreInputChange}
@@ -87,11 +84,12 @@ const MovieCommentWindow:React.FC<PropsType> = (props) => {
 					onChange={handleShortCommentContentChange}
 					value={shortCommentContentInput}
 				/>
-				<div className={style.onlyMe}><input type="checkbox" onChange={handleOnlyMeInputChange} value={onlyMeInput}/>仅自己可见</div>
+				<div className={style.onlyMe}><input type="checkbox" onChange={handleOnlyMeInputChange} checked={onlyMe}/>仅自己可见</div>
 			</div>
 			<div className={style.windowFooter}>
 				<input
 					type="checkbox"
+					checked={isShare}
 					onChange={handleIsShareInputChange}
 				/>
 				<div className={style.share}>分享到我的广播</div>
@@ -117,21 +115,21 @@ const MovieCommentWindow:React.FC<PropsType> = (props) => {
 		setShortCommentContentInput(value)
 	}
 
-	function handleOnlyMeInputChange(e:any){
-		console.log(e.target.value)
-		const value = e.target.value
-		setOnlyMeInput(value)
+	function handleOnlyMeInputChange(){
+		setOnlyMe(!onlyMe)
 	}
 
-	function handleIsShareInputChange(e:any){
-		// console.log(e.target.hasAttribute("checked"))
-		// const value = e.target.value === "off" ? "on":"off"
-		// setIsShareInput(value)
+	function handleIsShareInputChange(){
+		setIsShare(!isShare)
 	}
 
 	function handleStatusInputChange(e:any){
-		let value = e.target.value
-		setStatusInput(value)
+		const value = e.target.value
+		if(value === "想看"){
+			setStatus(false)
+		}else {
+			setStatus(true)
+		}
 	}
 
 	function AddLabel(labelItem:labelItemType){
@@ -156,24 +154,23 @@ const MovieCommentWindow:React.FC<PropsType> = (props) => {
 		}
 	}
 
-	function saveShortComment(userInfo:any){
-		if(!userInfo){
-			return
-		}
+	function saveShortComment(){
 		axios.post('/api/comments/createComment',{
 			movieId:movie_id,
-			userId:userInfo.userInfo.id,
 			content:shortCommentContentInput,
 			score:scoreInput * 2,
-			status:1,
+			status:status,
 			labelList:"",
-			onlyMe:0,
-			isShare:1
+			onlyMe:onlyMe,
+			isShare:isShare
 		})
-			.then(function (data){
-				console.log(data)
-				alert("保存成功")
-
+			.then(function (res){
+				const data = res.data
+				if(data.errno === 0){
+					alert("保存成功")
+				}else if(data.errno === 10002){
+					alert("未登录")
+				}
 			})
 			.catch(function (err){
 				console.log(err)

@@ -75,15 +75,19 @@ const Login:React.FC = () => {
 	}
 
 	function loginSucc(res:any){
-		if(!res.data.data){
+
+		const data = res.data
+		if(data.errno === 201){
+			alert("账号或密码错误")
 			return
+		}else if(data.errno === 0){
+			const action = {
+				type:"change_user_info",
+				value:data.data.data
+			}
+			store.dispatch(action)
 		}
-		const action = {
-			type:"change_user_info",
-			value:res.data.data
-		}
-		store.dispatch(action)
-		navigate(`/personal/${res.data.data.id}`)
+		navigate(`/personal/${data.data.data.id}`)
 	}
 
 	function registerClick(){

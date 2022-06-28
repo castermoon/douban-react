@@ -68,7 +68,6 @@ const LongCommentDetail:React.FC = () => {
 	const [CommentsMovieData, setCommentsMovieData] = useState<CommentsMovieDataType>({} as CommentsMovieDataType);
 	const [longCommentDetailRes, setLongCommentDetailRes] = useState<longCommentDetailResType[]>([]);
 	const [longCommentDetail, setLongCommentDetail] = useState<longCommentDetailType>({} as longCommentDetailType);
-	const [userInfo, setUserInfo] = useState(store.getState());
 	const [resInputContent, setResInputContent] = useState("");
 	const [myRespondInputContent, setMyRespondInputContent] = useState("");
 
@@ -103,9 +102,6 @@ const LongCommentDetail:React.FC = () => {
 		},500)
 	},[])
 
-	store.subscribe(()=>{
-		setUserInfo(store.getState())
-	})
 
 	return(
 		<div onClick={(event => {respondInputHide(event)})}>
@@ -229,7 +225,6 @@ const LongCommentDetail:React.FC = () => {
 			return
 		}
 		axios.post('/api/longCommentDetail/createLongCommentRes',{
-			user_id:userInfo.userInfo.id,
 			longComment_id:longCommentDetail.id,
 			content:myRespondInputContent.trim(),
 			scrollTop:document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop,
@@ -250,16 +245,12 @@ const LongCommentDetail:React.FC = () => {
 			alert("没有输入回应内容")
 			return
 		}
-		if(!userInfo.userInfo.id){
-			alert("没有登录")
-			return
-		}
+
 		//index表示被回复楼层所在列表的索引。
 		console.log(respondItemList)
 		let _scrollTop = respondItemList.current[index].offsetTop + respondItemList.current[index].offsetHeight - 200
 
 		axios.post('/api/longCommentDetail/createLongCommentResRes',{
-			user_id:userInfo.userInfo.id,
 			longCommentRespond_id:longCommentRes_id,
 			longComment_id:longCommentDetail.id,
 			respond_id:respond_id,

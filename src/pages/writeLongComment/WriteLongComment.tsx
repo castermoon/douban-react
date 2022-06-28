@@ -2,7 +2,6 @@ import React,{useState} from "react"
 import style from "./writeLongComment.styl"
 import { Link, useParams,useNavigate  } from "react-router-dom"
 import axios from "axios"
-import store from "../../store";
 
 interface userInfoType{
 	id: number;
@@ -18,13 +17,9 @@ const WriteLongComment:React.FC = () => {
 
 	const [commentTitle, setCommentTitle] = useState("")
 	const [commentContent, setCommentContent] = useState("")
-	const [userInfo, setUserInfo] = useState<userInfoType>(store.getState())
 	const [score, setScore] = useState(0)
-	const [spoiler,setSpoiler] = useState(0)
+	const [spoiler,setSpoiler] = useState(false)
 
-	store.subscribe(()=>{
-		setUserInfo(store.getState())
-	})
 
 	return(
 		<div>
@@ -44,7 +39,7 @@ const WriteLongComment:React.FC = () => {
 					<label className={style.label}>给个评价吧(1-5):</label>
 					<input className={style.scoreInput} type="number" onChange={scoreInputChange}/>
 					<label className={style.label}>是否剧透:</label>
-					<input type="checkbox" onChange={spoilerCheckBoxChange} value={1}/>
+					<input type="checkbox" onChange={spoilerCheckBoxChange} checked={spoiler}/>
 				</div>
 				<textarea  className={style.titleInput} maxLength={200} placeholder="添加标题" rows={1}
 									style={{resize: "none",overflow: "hidden", height: "30px"}}
@@ -59,19 +54,7 @@ const WriteLongComment:React.FC = () => {
 
 	function spoilerCheckBoxChange(e:any){
 		e.stopPropagation()
-		const target = e.target
-		if(target.hasAttribute("checked")){
-			target.removeAttribute("checked")
-			setSpoiler(0)
-		}else {
-			target.setAttribute("checked",true)
-			setSpoiler(1)
-		}
-
-		// e.target.setAttribute("checked")
-		console.log(e.target.hasAttribute("checked"))
-		// const value = e.target.value
-		// setScore(value)
+		setSpoiler(!spoiler)
 	}
 
 	function scoreInputChange(e:any){
@@ -92,21 +75,22 @@ const WriteLongComment:React.FC = () => {
 		setCommentContent(value)
 	}
 
-	function commentPublish(userInfo:any){
-		if(!userInfo){
-			return
-		}
+	function commentPublish(){
 		axios.post('/api/longComments/createLongComment',{
 			movieId:movie_id,
 			content:commentContent.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' '),
 			score:score,
-			userId:userInfo.userInfo.id,
 			title:commentTitle,
 			spoiler:spoiler
 		}).then((res)=>{
-			console.log(res)
-			alert("发表成功")
-			navigate(`/detail/${movie_id}`)
+			const data = res.data
+			if(data.errno === 0){
+				alert("发表成功")
+				navigate(`/detail/${movie_id}`)
+			}else if(data.errno === 10002){
+				alert("未登录")
+				navigate(`/login`)
+			}
 		})
 	}
 }

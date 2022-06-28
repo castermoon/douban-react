@@ -11,7 +11,6 @@ import CommonFooter from "../../common/commonFooter/CommonFooter";
 interface userInfoType{
 	id: number;
 	username: string;
-	password: string;
 	nickname: string;
 }
 

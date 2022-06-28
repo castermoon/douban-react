@@ -7,7 +7,6 @@ import store from "../../store";
 interface userInfoType{
 	id: number;
 	username: string;
-	password: string;
 	nickname: string;
 }
 
@@ -15,17 +14,13 @@ const CommonTopHeader:React.FC = () => {
 	const navigate = useNavigate()
 
 	const [dropMenuShow,setDropMenuShow] = useState(false)
-	const [userInfo,setUserInfo] = useState<userInfoType>({} as userInfoType )
+	const [userInfo,setUserInfo] = useState<userInfoType | null>(null )
 	const [noticeNum,setNoticeNum] = useState(0)
 
 	useEffect(()=>{
 		isLogin()
-		// getNoticeNum()
-	},[])
-
-	useEffect(()=>{
 		getNoticeNum()
-	},[userInfo])
+	},[])
 
 	return (
 		<div className={style.commonTopHeader}>
@@ -90,35 +85,34 @@ const CommonTopHeader:React.FC = () => {
 		axios.get('/api/user/logout',{
 		}).then((res) => {
 			if(res.data.errno == 0){
-				setUserInfo({} as userInfoType)
+				setUserInfo(null)
 
 				const action = {
 					type:"change_user_info",
 					value:null
 				}
 				store.dispatch(action)
-
-				navigate("/login")
+			}else {
+				return
 			}
+			navigate("/login")
 		}).catch((err) => {
 			console.log(err)
 		})
 	}
 
 	function getNoticeNum(){
-		if(!userInfo){
-			return
-		}
-		if(userInfo.id){
-			axios.get('/api/user/notice',{
-			}).then((res) => {
-				if(res.data.errno == 0){
-					setNoticeNum(res.data.data.noticeNum)
-				}
-			}).catch((err) => {
-				console.log(err)
-			})
-		}
+		axios.get('/api/user/notice',{
+		}).then((res) => {
+			const data = res.data
+			if(data.errno === 0){
+				setNoticeNum(data.data.noticeNum)
+			}else if(data.errno === 10002){
+				console.log("未登录")
+			}
+		}).catch((err) => {
+			console.log(err)
+		})
 	}
 }
 
