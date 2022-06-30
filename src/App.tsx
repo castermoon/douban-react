@@ -13,11 +13,13 @@ import LongCommentDetail from "./pages/longCommentDetail/LongCommentDetail";
 import Login from "./pages/login/Login";
 import Personal from "./pages/personal/Personal";
 import Management from "./pages/management/Management";
+import Page404 from "./pages/page404/Page404";
 class App extends Component{
   render() {
     return(
       <BrowserRouter>
         <Routes>
+
           <Route path="/"  element={<Home/>}/>
           <Route path="/detail/:movie_id"  element={<Detail/>}/>
           <Route path="/celebrity/:celebrity_id"  element={<Celebrity/>}/>
@@ -30,6 +32,7 @@ class App extends Component{
           <Route path="/login"  element={<Login/>}/>
           <Route path="/personal/:user_id"  element={<Personal/>}/>
           <Route path="/management" element={<Management/>}></Route>
+          <Route path="*" element={<Page404/>} />
         </Routes>
       </BrowserRouter>
     )
