@@ -1,4 +1,25 @@
-.bannerContainer
+:global
+  .bannerSwiper__container
+    .swiper
+      overflow inherit
+    .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction
+      bottom -20px
+      z-index -1
+    .swiper-button-prev, .swiper-button-next
+      position absolute
+      width 20px
+      height 15px
+      top 447px
+    .swiper-button-prev
+      left 40%
+      background-position left
+    .swiper-button-next
+      right 40%
+      background-position right
+    .swiper-button-prev:after,.swiper-button-next:after
+      font-size 16px
+      font-weight bold
+.container
   margin-top 30px
   overflow hidden
   .header

@@ -12,7 +12,7 @@ import SubjectSearch from "./pages/subjectSearch/SubjectSearch";
 import LongCommentDetail from "./pages/longCommentDetail/LongCommentDetail";
 import Login from "./pages/login/Login";
 import Personal from "./pages/personal/Personal";
-
+import Management from "./pages/management/Management";
 class App extends Component{
   render() {
     return(
@@ -29,6 +29,7 @@ class App extends Component{
           <Route path="/subjectSearch/:searchContent/:searchType"  element={<SubjectSearch/>}/>
           <Route path="/login"  element={<Login/>}/>
           <Route path="/personal/:user_id"  element={<Personal/>}/>
+          <Route path="/management" element={<Management/>}></Route>
         </Routes>
       </BrowserRouter>
     )

@@ -24,16 +24,16 @@ const CommonTopHeader:React.FC = () => {
 
 	return (
 		<div className={style.commonTopHeader}>
-			<ul className={style.headerLeft}>
-				<li className={style.headerLink}><a href="#" className={style.name}>豆瓣</a></li>
-				<li className={style.headerLink}><a href="#">读书</a></li>
-				<li className={style.headerLink}><a href="#">电影</a></li>
-				<li className={style.headerLink}><a href="#">音乐</a></li>
-				<li className={style.headerLink}><a href="#">同城</a></li>
-				<li className={style.headerLink}><a href="#">小组</a></li>
-				<li className={style.headerLink}><a href="#">阅读</a></li>
-				<li className={style.headerLink}><a href="#">FM</a></li>
-			</ul>
+			{/*<ul className={style.headerLeft}>*/}
+			{/*	<li className={style.headerLink}><a href="#" className={style.name}>豆瓣</a></li>*/}
+			{/*	<li className={style.headerLink}><a href="#">读书</a></li>*/}
+			{/*	<li className={style.headerLink}><a href="#">电影</a></li>*/}
+			{/*	<li className={style.headerLink}><a href="#">音乐</a></li>*/}
+			{/*	<li className={style.headerLink}><a href="#">同城</a></li>*/}
+			{/*	<li className={style.headerLink}><a href="#">小组</a></li>*/}
+			{/*	<li className={style.headerLink}><a href="#">阅读</a></li>*/}
+			{/*	<li className={style.headerLink}><a href="#">FM</a></li>*/}
+			{/*</ul>*/}
 			<div className={style.headerRight}>
 				{  userInfo &&
 					<Link to={`/notice/${userInfo.id}`} className={style.headerRightLink}>

@@ -4,10 +4,12 @@ import { Navigation, Pagination } from 'swiper';
 import { Link } from "react-router-dom"
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+
 import Star from "../../../../common/star/Star";
 
 interface movieItem{
@@ -43,7 +45,7 @@ const PhotoList = (props:iProps) => {
 		return <Swiper
 			modules={[Navigation, Pagination,]}
 			navigation
-			pagination={{ clickable: true }}
+			pagination={{ clickable: true,type:'fraction' }}
 		>
 			{
 				pages(PhotoList).map((page,index) => {
@@ -53,7 +55,7 @@ const PhotoList = (props:iProps) => {
 								<div className={style.icon}><img src={item.cover}/></div>
 								<div className={style.name}>{item.name}</div>
 								<div className={style.starWrapper}><Star score={item.score}/><span className={style.score}>{item.score}</span></div>
-								<div className={style.button}>选座购票</div>
+								{/*<div className={style.button}>选座购票</div>*/}
 							</Link>
 						})}
 					</SwiperSlide>

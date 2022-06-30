@@ -12,6 +12,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+
 interface movieItem{
 	cover:string,
 	id:number,
@@ -60,7 +61,7 @@ const BannerSwiper:React.FC<propsType> = (props) => {
 		return pages
 	}
 	return(
-		<div className={style.bannerContainer}>
+		<div className={style.container}>
 			<div className={style.header}>
 				<span className={style.title}>最近热门电影</span>
 				<ul className={style.headerList}>
@@ -73,7 +74,7 @@ const BannerSwiper:React.FC<propsType> = (props) => {
 					<li className={style.headerListItem}>韩国</li>
 					<li className={style.headerListItem}>日本</li>
 				</ul>
-				<div className={style.more}>更多»</div>
+				{/*<div className={style.more}>更多»</div>*/}
 			</div>
 			<div className={style.bannerBody}>
 					{getSwiper()}
