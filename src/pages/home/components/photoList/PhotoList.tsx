@@ -30,8 +30,8 @@ const PhotoList = (props:iProps) => {
 			<div className={style.container}>
 				<div className={style.title}>
 					<span className={style.hot}>正在热映</span>
-					<span className={style.allHot}>全部正在热映»</span>
-					<span className={style.soon}>即将上映»</span>
+					{/*<span className={style.allHot}>全部正在热映»</span>*/}
+					{/*<span className={style.soon}>即将上映»</span>*/}
 				</div>
 				<div className={style.photoContainer}>
 					{getSwiper()}

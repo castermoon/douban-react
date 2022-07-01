@@ -19,7 +19,6 @@ class App extends Component{
     return(
       <BrowserRouter>
         <Routes>
-
           <Route path="/"  element={<Home/>}/>
           <Route path="/detail/:movie_id"  element={<Detail/>}/>
           <Route path="/celebrity/:celebrity_id"  element={<Celebrity/>}/>

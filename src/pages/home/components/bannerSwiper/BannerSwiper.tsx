@@ -21,11 +21,12 @@ interface movieItem{
 }
 
 interface propsType{
-	PhotoList:movieItem[]
+	PhotoList:movieItem[];
+	title:string;
 }
 
 const BannerSwiper:React.FC<propsType> = (props) => {
-	const { PhotoList } = props
+	const { PhotoList,title } = props
 	const getSwiper =() => {
 		return <Swiper
 			modules={[Navigation, Pagination,]}
@@ -63,17 +64,17 @@ const BannerSwiper:React.FC<propsType> = (props) => {
 	return(
 		<div className={style.container}>
 			<div className={style.header}>
-				<span className={style.title}>最近热门电影</span>
-				<ul className={style.headerList}>
-					<li className={style.headerListItem}>热门</li>
-					<li className={style.headerListItem}>最新</li>
-					<li className={style.headerListItem}>豆瓣高分</li>
-					<li className={style.headerListItem}>冷门佳片</li>
-					<li className={style.headerListItem}>华语</li>
-					<li className={style.headerListItem}>欧美</li>
-					<li className={style.headerListItem}>韩国</li>
-					<li className={style.headerListItem}>日本</li>
-				</ul>
+				<span className={style.title}>{ title }</span>
+				{/*<ul className={style.headerList}>*/}
+				{/*	<li className={style.headerListItem}>热门</li>*/}
+				{/*	<li className={style.headerListItem}>最新</li>*/}
+				{/*	<li className={style.headerListItem}>豆瓣高分</li>*/}
+				{/*	<li className={style.headerListItem}>冷门佳片</li>*/}
+				{/*	<li className={style.headerListItem}>华语</li>*/}
+				{/*	<li className={style.headerListItem}>欧美</li>*/}
+				{/*	<li className={style.headerListItem}>韩国</li>*/}
+				{/*	<li className={style.headerListItem}>日本</li>*/}
+				{/*</ul>*/}
 				{/*<div className={style.more}>更多»</div>*/}
 			</div>
 			<div className={style.bannerBody}>

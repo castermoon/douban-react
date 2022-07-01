@@ -4,8 +4,11 @@ import BaseBody from "../../common/baseBody/BaseBody";
 import BannerSwiper from "./components/bannerSwiper/BannerSwiper";
 import style from "./home.styl"
 import CommonFooter from "../../common/commonFooter/CommonFooter";
+import { Link } from "react-router-dom"
 import PhotoList from "./components/photoList/PhotoList";
 import axios from "axios"
+import HotRecommend from "./components/hotRecommend/HotRecommend";
+import PopularComments from "./components/popularComments/PopularComments";
 
 interface weekendListItem{
 	name:string,
@@ -15,7 +18,8 @@ interface weekendListItem{
 const Home:React.FC = () => {
 	const [data, setData] = useState({
 		weekendList:[],
-		PhotoList:[]
+		PhotoList:[],
+		popularCommentList:[]
 	});
 
 	//getHomeData
@@ -24,7 +28,8 @@ const Home:React.FC = () => {
 			.then((res)=>{
 				setData({
 					weekendList:res.data.data.weekendList,
-					PhotoList:res.data.data.PhotoList
+					PhotoList:res.data.data.PhotoList,
+					popularCommentList:res.data.data.popularCommentList
 				})
 			})
 	},[])
@@ -36,7 +41,10 @@ const Home:React.FC = () => {
 				left={
 					<Fragment>
 						<PhotoList PhotoList={data.PhotoList}/>
-						<BannerSwiper PhotoList={data.PhotoList} />
+						<BannerSwiper title={'最近热门电影'} PhotoList={data.PhotoList} />
+						<BannerSwiper title={'最近热门电视剧'} PhotoList={data.PhotoList} />
+						<HotRecommend />
+						<PopularComments popularCommentList={data.popularCommentList}/>
 					</Fragment>
 				}
 				right={
@@ -52,7 +60,7 @@ const Home:React.FC = () => {
 							<ul className={style.list}>
 								{
 									data.weekendList.map((item:weekendListItem,index) => {
-										return <li className={style.listItem} key={item.id}><span className={style.num}>{index+1}&nbsp;</span>{item.name}</li>
+										return <Link key={item.id} to={`detail/${item.id}`}><li  className={style.listItem} ><span className={style.num}>{index+1}&nbsp;</span>{item.name}</li></Link>
 									})
 								}
 							</ul>
@@ -60,8 +68,8 @@ const Home:React.FC = () => {
 						<div className={style.douList}>
 							<h2 className={style.douListTitle}>热门豆列</h2>
 							<ul>
-								<li className={style.douListItem}>MOViE木卫：你不应该错过的100部韩国电影</li>
-								<li className={style.douListItem}>MOViE木卫：你不应该错过的100部韩国电影</li>
+								<li className={style.douListItem}>英国历史</li>
+								<li className={style.douListItem}>黑暗系日影日剧，专治各种鸡汤病</li>
 							</ul>
 						</div>
 					</Fragment>

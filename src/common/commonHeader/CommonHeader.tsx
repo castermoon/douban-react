@@ -31,16 +31,14 @@ const CommonHeader = () => {
 							<button className={style.searchButton} onClick={handleSearch}/>
 						</div>
 					</div>
-					<ul className={style.headerBodyBottom}>
-						<li className={style.headerBodyLink}>影讯&购票</li>
-						<li className={style.headerBodyLink}>选电影</li>
-						<li className={style.headerBodyLink}>电视剧</li>
-						<li className={style.headerBodyLink}>排行榜 </li>
-						<li className={style.headerBodyLink}>分类 </li>
-						<li className={style.headerBodyLink}>影评</li>
-						<li className={style.headerBodyLink}>2019年度榜单 </li>
-						<li className={style.headerBodyLink}>2019书影音报告</li>
-					</ul>
+					{/*<ul className={style.headerBodyBottom}>*/}
+					{/*	<li className={style.headerBodyLink}>影讯&购票</li>*/}
+					{/*	<li className={style.headerBodyLink}>选电影</li>*/}
+					{/*	<li className={style.headerBodyLink}>电视剧</li>*/}
+					{/*	<li className={style.headerBodyLink}>排行榜 </li>*/}
+					{/*	<li className={style.headerBodyLink}>分类 </li>*/}
+					{/*	<li className={style.headerBodyLink}>影评</li>*/}
+					{/*</ul>*/}
 					<div className={style.headerLogo}/>
 				</div>
 			</div>
