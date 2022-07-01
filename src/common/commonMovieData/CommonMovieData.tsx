@@ -1,8 +1,7 @@
 import React,{Fragment} from "react"
-import { Link,useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import style from "./commonMovieData.styl"
 import CommonLabel from "../commonLabel/CommonLabel";
-import PropTypes from "prop-types"
 
 interface celebrityType{
 	id:number;
@@ -29,13 +28,11 @@ interface PropsType{
 }
 
 const CommonMovieData:React.FC<PropsType> = (props) => {
-	const params = useParams()
-	const { movie_id } = params
 
 	const { CommentsMovieData } = props
 	return(
 		<Fragment>
-			<div className={style.backLink}><Link to={"/detail/"+ movie_id}> 去 { CommentsMovieData.name}的页面</Link></div>
+			<div className={style.backLink}><Link to={"/detail/"+ CommentsMovieData.id}> 去 { CommentsMovieData.name}的页面</Link></div>
 			<div className={style.movieDetail}>
 				<div className={style.coverWrapper}><img src={CommentsMovieData.cover} alt="电影封面"/></div>
 				<CommonLabel label="导演" content={CommentsMovieData.director} pathName="celebrity"/>
