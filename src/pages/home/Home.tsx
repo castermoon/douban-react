@@ -10,27 +10,49 @@ import axios from "axios"
 import HotRecommend from "./components/hotRecommend/HotRecommend";
 import PopularComments from "./components/popularComments/PopularComments";
 
-interface weekendListItem{
+interface weekendListItemType{
 	name:string,
 	id:number
 }
 
-const Home:React.FC = () => {
-	const [data, setData] = useState({
-		weekendList:[],
-		PhotoList:[],
-		popularCommentList:[]
-	});
+interface movieItemType{
+	id: number,
+	cover: string,
+	name: string,
+	score: number,
+	type: string
+}
 
+interface commentType{
+	longComment_id: number,
+	title: string,
+	content: string,
+	score: number,
+	movie_id: number,
+	cover: string,
+	movie_name: string,
+	user_id: number,
+	username: string
+}
+
+const Home:React.FC = () => {
+	const [weekendList, setWeekendList] = useState<weekendListItemType[]>([]);
+	const [isShowingMovieList, setIsShowingMovieList] = useState<movieItemType[]>([]);
+	const [hotMovieList, setHotMovieList] = useState<movieItemType[]>([]);
+	const [hotTVList, setHotTVList] = useState<movieItemType[]>([]);
+	const [popularCommentList, setPopularCommentList] = useState<commentType[]>([]);
+
+	const typeList = ["所有","中国","日本","美国","韩国"]
 	//getHomeData
 	useEffect(()=>{
 		axios.get("/api/home")
 			.then((res)=>{
-				setData({
-					weekendList:res.data.data.weekendList,
-					PhotoList:res.data.data.PhotoList,
-					popularCommentList:res.data.data.popularCommentList
-				})
+				const data = res.data.data
+				setWeekendList(data.weekendList)
+				setHotMovieList(data.hotMovieList)
+				setIsShowingMovieList(data.isShowingMovieList)
+				setHotTVList(data.hotTVList)
+				setPopularCommentList(data.popularCommentList)
 			})
 	},[])
 
@@ -40,11 +62,23 @@ const Home:React.FC = () => {
 			<BaseBody
 				left={
 					<Fragment>
-						<PhotoList PhotoList={data.PhotoList}/>
-						<BannerSwiper title={'最近热门电影'} PhotoList={data.PhotoList} />
-						<BannerSwiper title={'最近热门电视剧'} PhotoList={data.PhotoList} />
+						<PhotoList movieList={isShowingMovieList} />
+						<BannerSwiper
+							typeList={typeList}
+							title={'最近热门电影'}
+							movieList={hotMovieList}
+							getMovieList={getMovieList}
+							dataType={"hotMovie"}
+						/>
+						<BannerSwiper
+							typeList={typeList}
+							title={'最近热门电视剧'}
+							movieList={hotTVList}
+							getMovieList={getMovieList}
+							dataType={"hotTV"}
+						/>
 						<HotRecommend />
-						<PopularComments popularCommentList={data.popularCommentList}/>
+						<PopularComments popularCommentList={popularCommentList}/>
 					</Fragment>
 				}
 				right={
@@ -59,7 +93,7 @@ const Home:React.FC = () => {
 							</div>
 							<ul className={style.list}>
 								{
-									data.weekendList.map((item:weekendListItem,index) => {
+									weekendList.map((item:weekendListItemType,index) => {
 										return <Link key={item.id} to={`detail/${item.id}`}><li  className={style.listItem} ><span className={style.num}>{index+1}&nbsp;</span>{item.name}</li></Link>
 									})
 								}
@@ -78,6 +112,19 @@ const Home:React.FC = () => {
 			<CommonFooter/>
 		</Fragment>
 	)
+
+	function getMovieList(dataName:string,country:string):void{
+		axios.post(`/api/home/getHomeMovieData`,{
+			country:country
+		}).then((res)=>{
+				const data = res.data.data
+				if(dataName === "hotMovie"){
+					setHotMovieList(data.dataList)
+				}else if(dataName === "hotTV"){
+					setHotTVList(data.dataList)
+				}
+			})
+	}
 }
 
 

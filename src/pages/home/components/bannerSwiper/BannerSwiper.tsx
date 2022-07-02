@@ -23,12 +23,15 @@ interface movieItem{
 }
 
 interface propsType{
-	PhotoList:movieItem[];
+	movieList:movieItem[];
 	title:string;
+	getMovieList:(dataName: string, country: string) => void;
+	typeList:string[];
+	dataType:string;
 }
 
 const BannerSwiper:React.FC<propsType> = (props) => {
-	const { PhotoList,title } = props
+	const { movieList,title,getMovieList,typeList,dataType } = props
 	const getSwiper =() => {
 		return <Swiper
 			modules={[Navigation, Pagination,]}
@@ -36,7 +39,7 @@ const BannerSwiper:React.FC<propsType> = (props) => {
 			pagination={{ clickable: true }}
 		>
 			{
-				pages(PhotoList).map((page,index) => {
+				pages(movieList).map((page,index) => {
 					return <SwiperSlide key={index}>
 						{ page.map((item) => {
 							return <Link to={`/detail/${item.id}`} key={item.id} className={style.item}>
@@ -55,9 +58,9 @@ const BannerSwiper:React.FC<propsType> = (props) => {
 		</Swiper>
 	}
 
-	const pages =(PhotoList:movieItem[]):movieItem[][] => {
+	const pages =(movieList:movieItem[]):movieItem[][] => {
 		let pages:movieItem[][] = []
-		PhotoList.forEach((item,index) =>{
+		movieList.forEach((item,index) =>{
 			let page = Math.floor(index / 10)
 			if (!pages[page]){
 				pages[page] = []
@@ -70,17 +73,18 @@ const BannerSwiper:React.FC<propsType> = (props) => {
 		<div className={style.container}>
 			<div className={style.header}>
 				<span className={style.title}>{ title }</span>
-				{/*<ul className={style.headerList}>*/}
-				{/*	<li className={style.headerListItem}>热门</li>*/}
-				{/*	<li className={style.headerListItem}>最新</li>*/}
-				{/*	<li className={style.headerListItem}>豆瓣高分</li>*/}
-				{/*	<li className={style.headerListItem}>冷门佳片</li>*/}
-				{/*	<li className={style.headerListItem}>华语</li>*/}
-				{/*	<li className={style.headerListItem}>欧美</li>*/}
-				{/*	<li className={style.headerListItem}>韩国</li>*/}
-				{/*	<li className={style.headerListItem}>日本</li>*/}
-				{/*</ul>*/}
-				{/*<div className={style.more}>更多»</div>*/}
+				<ul className={style.headerList}>
+					{
+						typeList.length > 0 && typeList.map((item,index) => {
+							return <li
+								className={style.headerListItem}
+								key={index}
+								onClick={() => {getMovieList(dataType,item)}}
+							>{item}</li>
+						})
+					}
+				</ul>
+				<div className={style.more}>更多»</div>
 			</div>
 			<div className={style.bannerBody}>
 					{getSwiper()}

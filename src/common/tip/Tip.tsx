@@ -11,7 +11,6 @@ interface movieItemType{
 
 interface PropsType{
     movieItem:movieItemType
-
 }
 
 const Tip:React.FC<PropsType> = (props) => {

@@ -22,11 +22,11 @@ interface movieItem{
 }
 
 interface iProps{
-	PhotoList:movieItem[],
+	movieList:movieItem[],
 }
 
 const PhotoList = (props:iProps) => {
-	const {PhotoList} = props
+	const {movieList} = props
 
 	return(
 		<Fragment>
@@ -51,7 +51,7 @@ const PhotoList = (props:iProps) => {
 			pagination={{ clickable: true,type:'fraction' }}
 		>
 			{
-				pages(PhotoList).map((page,index) => {
+				pages(movieList).map((page,index) => {
 					return <SwiperSlide key={index}>
 						{ page.map(item => {
 							return <Link to={`/detail/${item.id}`} className={style.item} key={item.id}>
@@ -70,9 +70,9 @@ const PhotoList = (props:iProps) => {
 		</Swiper>
 	}
 
-	function pages(PhotoList:movieItem[]):movieItem[][] {
+	function pages(movieList:movieItem[]):movieItem[][] {
 		let pages:movieItem[][] = []
-		PhotoList.forEach((item,index) =>{
+		movieList.forEach((item,index) =>{
 			let page = Math.floor(index / 5)
 			if (!pages[page]){
 				pages[page] = []

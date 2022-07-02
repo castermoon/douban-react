@@ -127,6 +127,19 @@ const Detail:React.FC = () => {
 						<CommonTitle title={movieData.name + "的长评"} content={`全部${movieData.longCommentsCount}条`} link={`/longComments/${movieData.id}/1`}/>
 					</Fragment>
 				}
+				right={
+					<div className={style.movie_list_recommend}>
+						<CommonTitle title={"以下片单推荐"}/>
+						<ul className={style.recommend_list}>
+							<li className={style.recommend_item}>豆瓣电影【口碑榜】2022-06-13 更新 (影志)</li>
+							<li className={style.recommend_item}>评价人数超过十万的电影 (依然饭特稀)</li>
+							<li className={style.recommend_item}>一个人的电影院 (刺青童)</li>
+							<li className={style.recommend_item}>2022—2024值得关注的华语电影 (closer)</li>
+							<li className={style.recommend_item}>豆瓣电影【口碑榜】2022-06-13 更新 (影志)</li>
+							<li className={style.recommend_item}>豆瓣评价人数过十万的影片〖国产篇〗 (莉莉周)</li>
+						</ul>
+					</div>
+				}
 			/>
 			<MovieCommentWindow
 				movie_id={movieData.id}
