@@ -11,12 +11,14 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import Star from "../../../../common/star/Star";
+import Tip from "../../../../common/tip/Tip";
 
 interface movieItem{
 	cover:string,
 	id:number,
 	name:string,
-	score:number
+	score:number,
+	type:string
 }
 
 interface iProps{
@@ -25,6 +27,7 @@ interface iProps{
 
 const PhotoList = (props:iProps) => {
 	const {PhotoList} = props
+
 	return(
 		<Fragment>
 			<div className={style.container}>
@@ -50,12 +53,15 @@ const PhotoList = (props:iProps) => {
 			{
 				pages(PhotoList).map((page,index) => {
 					return <SwiperSlide key={index}>
-						{ page.map((item) => {
+						{ page.map(item => {
 							return <Link to={`/detail/${item.id}`} className={style.item} key={item.id}>
 								<div className={style.icon}><img src={item.cover}/></div>
 								<div className={style.name}>{item.name}</div>
 								<div className={style.starWrapper}><Star score={item.score}/><span className={style.score}>{item.score}</span></div>
 								{/*<div className={style.button}>选座购票</div>*/}
+								<div className={style.tip_wrapper}>
+									<Tip movieItem={item}/>
+								</div>
 							</Link>
 						})}
 					</SwiperSlide>

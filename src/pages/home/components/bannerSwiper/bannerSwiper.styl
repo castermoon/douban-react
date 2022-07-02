@@ -19,9 +19,13 @@
     .swiper-button-prev:after,.swiper-button-next:after
       font-size 16px
       font-weight bold
+    .swiper-slide
+      visibility hidden
+    .swiper-slide-active
+      visibility visible
 .container
   margin-top 30px
-  overflow hidden
+  //overflow hidden
   .header
     height 40px
     line-height 40px
@@ -48,8 +52,11 @@
       margin-right 35px
       width 115px
       height 210px
+      position relative
       &:nth-child(5n)
         margin-right 0
+      &:hover .tip_wrapper
+        display block
       .icon
         width 115px
         height 161px
@@ -65,4 +72,6 @@
         height 40px
         line-height 40px
         color #258dcd
+      .tip_wrapper
+        display none
 

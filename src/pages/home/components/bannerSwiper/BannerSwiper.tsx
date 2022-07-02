@@ -11,6 +11,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import Tip from "../../../../common/tip/Tip";
 
 
 interface movieItem{
@@ -18,6 +19,7 @@ interface movieItem{
 	id:number,
 	name:string,
 	score:number
+	type:string
 }
 
 interface propsType{
@@ -41,6 +43,9 @@ const BannerSwiper:React.FC<propsType> = (props) => {
 									<div className={style.item} key={item.id}>
 										<div className={style.icon}><img src={item.cover}/></div>
 										<div className={style.name}>{item.name}</div>
+										<div className={style.tip_wrapper}>
+											<Tip movieItem={item}/>
+										</div>
 									</div>
 								</Link>
 						})}
