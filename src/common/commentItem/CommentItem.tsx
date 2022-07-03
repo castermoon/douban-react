@@ -23,7 +23,7 @@ const CommentItem:React.FC<PropsType> = (props) => {
         <li className={style.commentListItem} key={id}>
             <div className={style.commentDesc}>
                 <div className={style.commentDescHeader}>
-                    <img className={style.icon} src="https://img2.doubanio.com/icon/u155190344-21.jpg"/>
+                    <img className={style.icon} src="https://i.postimg.cc/yxMQQrWN/image.jpg" alt="头像"/>
                     <div className={style.name}><a href="">{nickname}</a></div>
                     {score > 0 &&  <span>看过</span>}
                     {score === 0 && <span>想看</span>}

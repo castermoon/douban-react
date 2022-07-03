@@ -26,7 +26,7 @@ const CommentItem:React.FC<PropsType> = (props) => {
     return(
         <li className={style.longCommentsListItem} key={id}>
             <div className={style.longCommentsListItemHeader}>
-                <img className={style.icon} src="https://img2.doubanio.com/icon/u155190344-21.jpg" alt=""/>
+                <img className={style.icon} src="https://i.postimg.cc/yxMQQrWN/image.jpg" alt="头像"/>
                 <div className={style.name}><a href="#">{nickname}</a></div>
                 <div className={style.starWrapper}>
                     <Star score={score}/>

@@ -28,7 +28,9 @@ const CommonHeader = () => {
 								placeholder="搜索电影、人物"
 								onChange={searchContentChange}
 							/>
-							<button className={style.searchButton} onClick={handleSearch}/>
+							<button className={style.searchButton} onClick={handleSearch}>
+								<span className={[style.search_icon,"iconfont"].join(" ")}>&#xe651;</span>
+							</button>
 						</div>
 					</div>
 					<ul className={style.headerBodyBottom}>

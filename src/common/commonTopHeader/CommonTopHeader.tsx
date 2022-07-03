@@ -108,7 +108,7 @@ const CommonTopHeader:React.FC = () => {
 			if(data.errno === 0){
 				setNoticeNum(data.data.noticeNum)
 			}else if(data.errno === 10002){
-				console.log("未登录")
+				// console.log("未登录")
 			}
 		}).catch((err) => {
 			console.log(err)

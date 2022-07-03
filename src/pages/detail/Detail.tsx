@@ -162,7 +162,7 @@ const Detail:React.FC = () => {
 						<ul className={style.longCommentsList}>
 							{
 								recentLongCommentList.length > 0 && recentLongCommentList.map(item => {
-									return 	<LongCommentItem longComment={item}/>
+									return 	<LongCommentItem longComment={item} key={item.id}/>
 								})
 							}
 						</ul>

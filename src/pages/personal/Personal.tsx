@@ -53,7 +53,7 @@ const Personal:React.FC = () => {
 				left={
 					<Fragment>
 						<div className={style.personal_info}>
-							<img className={style.icon} src="https://images.weserv.nl/?url=img2.doubanio.com/icon/u1854660-2473.jpg"/>
+							<img className={style.icon} src="https://i.postimg.cc/yxMQQrWN/image.jpg"/>
 							<div className={style.personal_info_right}>
 								<h1 className={style.name}>{userInfo.nickname}</h1>
 								<div className={style.autograph}>(添加签名档)</div>

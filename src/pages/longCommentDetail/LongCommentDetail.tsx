@@ -113,7 +113,7 @@ const LongCommentDetail:React.FC = () => {
 						<div className={style.long_comment_body}>
 							<div className={style.long_comment_header}>
 								<img className={style.icon}
-										 src="https://images.weserv.nl/?url=https://img2.doubanio.com/icon/u155190344_21.jpg"
+										 src="https://i.postimg.cc/yxMQQrWN/image.jpg"
 								/>
 								<div className={style.name}><a href="#">{longCommentDetail.nickName}</a></div>
 								<div className={style.star_wrapper}>
@@ -133,7 +133,7 @@ const LongCommentDetail:React.FC = () => {
 									// @ts-ignore
 									return 	<li className={style.respond_item}  key={item.id} ref={getRef}>
 										<div className={style.respond_item_left}>
-											<img className={style.respond_item_icon} src="https://img2.doubanio.com/icon/up208248294_1.jpg"/>
+											<img className={style.respond_item_icon} src="https://i.postimg.cc/yxMQQrWN/image.jpg"/>
 										</div>
 										<div className={style.respond_item_right}>
 											<div className={style.respond_user_info}>
@@ -155,7 +155,7 @@ const LongCommentDetail:React.FC = () => {
 													item.secondResList.length > 0 && item.secondResList.map((secondResItem,index2) => {
 														return <li className={style.resRes_item} key={secondResItem.secondRes_id}>
 															<div className={style.resRes_item_left}>
-																<img className={style.resRes_item_icon} src="https://img2.doubanio.com/icon/up208248294_1.jpg"/>
+																<img className={style.resRes_item_icon} src="https://i.postimg.cc/yxMQQrWN/image.jpg"/>
 															</div>
 															<div className={style.resRes_item_right}>
 																<div className={style.resRes_user_info}>
@@ -189,7 +189,7 @@ const LongCommentDetail:React.FC = () => {
 						</ul>
 						<div className={style.my_respond}>
 							<div className={style.my_respond_left}>
-								<img className={style.my_respond_icon} src="https://images.weserv.nl/?url=https://img2.doubanio.com/icon/u155190344_21.jpg"/>
+								<img className={style.my_respond_icon} src="https://i.postimg.cc/yxMQQrWN/image.jpg"/>
 							</div>
 							<textarea
 								className={style.my_respond_input}

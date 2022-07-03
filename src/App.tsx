@@ -1,6 +1,7 @@
 import { BrowserRouter,Route,Routes } from "react-router-dom"
 import React, { Component } from "react"
 import "./assets/style/reset.css"
+import "./assets/style/iconfont/iconfont.css"
 import Home from "./pages/home/Home"
 import Detail from "./pages/detail/Detail";
 import Celebrity from "./pages/celebrity/Celebrity";

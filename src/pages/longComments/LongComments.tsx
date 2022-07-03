@@ -7,7 +7,6 @@ import axios from "axios"
 import {Link,useParams } from "react-router-dom"
 import Pagination from "../../common/pagination/Pagination";
 import CommonMovieData from "../../common/commonMovieData/CommonMovieData";
-import Star from "../../common/star/Star";
 import LongCommentItem from "../../common/longCommentItem/LongCommentItem";
 
 interface celebrityType{

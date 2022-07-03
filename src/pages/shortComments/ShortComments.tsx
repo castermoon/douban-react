@@ -98,7 +98,7 @@ const ShortComments = () => {
 								<ul className={style.commentList}>
 									{
 										commentList.length > 0 && commentList.map(item => {
-											return <CommentItem comment={item}/>
+											return <CommentItem comment={item} key={item.id}/>
 										})
 									}
 								</ul>
