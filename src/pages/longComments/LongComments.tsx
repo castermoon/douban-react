@@ -8,6 +8,7 @@ import {Link,useParams } from "react-router-dom"
 import Pagination from "../../common/pagination/Pagination";
 import CommonMovieData from "../../common/commonMovieData/CommonMovieData";
 import Star from "../../common/star/Star";
+import LongCommentItem from "../../common/longCommentItem/LongCommentItem";
 
 interface celebrityType{
 	id:number;
@@ -72,21 +73,7 @@ const LongComments:React.FC = () => {
 						<ul className={style.longCommentsList}>
 							{
 								longCommentList.length > 0 && longCommentList.map(item => {
-									return <li className={style.longCommentsListItem} key={item.id}>
-										<div className={style.longCommentsListItemHeader}>
-											<img className={style.icon} src="https://img2.doubanio.com/icon/u155190344-21.jpg" alt=""/>
-											<div className={style.name}><a href="#">{item.nickname}</a></div>
-											<div className={style.starWrapper}>
-												<Star score={item.score}/>
-											</div>
-											<div className={style.date}>{timestampChange(item.date)}</div>
-										</div>
-										<Link to={`/longCommentDetail/${item.id}/0`} className={style.longCommentsListItemTitle}>{ item.title }</Link>
-										{ item.spoiler && <div className={style.Spoiler}>| 这篇影评可能有剧透</div> }
-										<p className={style.longCommentsListItemContent}>
-											{item.content}
-										</p>
-									</li>
+									return <LongCommentItem longComment={item} key={item.id}/>
 								})
 							}
 						</ul>
@@ -101,16 +88,6 @@ const LongComments:React.FC = () => {
 		</Fragment>
 	)
 
-	function timestampChange(timestamp:number) {
-		var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-		var Y = date.getFullYear() + '-';
-		var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-		var D = date.getDate() + ' ';
-		var h = date.getHours() + ':';
-		var m = date.getMinutes() + ':';
-		var s = date.getSeconds();
-		return Y+M+D+h+m+s;
-	}
 }
 
 

@@ -14,6 +14,7 @@ import Login from "./pages/login/Login";
 import Personal from "./pages/personal/Personal";
 import Management from "./pages/management/Management";
 import Page404 from "./pages/page404/Page404";
+import MovieRank from "./pages/movieRank/MovieRank";
 class App extends Component{
   render() {
     return(
@@ -30,6 +31,7 @@ class App extends Component{
           <Route path="/subjectSearch/:searchContent/:searchType"  element={<SubjectSearch/>}/>
           <Route path="/login"  element={<Login/>}/>
           <Route path="/personal/:user_id"  element={<Personal/>}/>
+          <Route path="/movieRank" element={<MovieRank/>}></Route>
           <Route path="/management" element={<Management/>}></Route>
           <Route path="*" element={<Page404/>} />
         </Routes>

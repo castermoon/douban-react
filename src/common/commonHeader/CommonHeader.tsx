@@ -31,14 +31,14 @@ const CommonHeader = () => {
 							<button className={style.searchButton} onClick={handleSearch}/>
 						</div>
 					</div>
-					{/*<ul className={style.headerBodyBottom}>*/}
+					<ul className={style.headerBodyBottom}>
+						<Link to={"/movieRank"}><li className={style.headerBodyLink}>排行榜 </li></Link>
 					{/*	<li className={style.headerBodyLink}>影讯&购票</li>*/}
 					{/*	<li className={style.headerBodyLink}>选电影</li>*/}
 					{/*	<li className={style.headerBodyLink}>电视剧</li>*/}
-					{/*	<li className={style.headerBodyLink}>排行榜 </li>*/}
 					{/*	<li className={style.headerBodyLink}>分类 </li>*/}
 					{/*	<li className={style.headerBodyLink}>影评</li>*/}
-					{/*</ul>*/}
+					</ul>
 					<div className={style.headerLogo}/>
 				</div>
 			</div>

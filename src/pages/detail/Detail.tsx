@@ -11,6 +11,8 @@ import {Link,useParams} from "react-router-dom"
 import MovieCommentWindow from "../../common/movieCommentWindow/MovieCommentWindow";
 import CommonTitle from "../../common/commonTitle/CommonTitle";
 import PhotoBox from "./component/photoBox/PhotoBox";
+import CommentItem from "../../common/commentItem/CommentItem";
+import LongCommentItem from "../../common/longCommentItem/LongCommentItem";
 
 interface maybeLikeListItemType{
 	id:number;
@@ -54,6 +56,27 @@ interface commentScoreObjType{
 	10:string;
 }
 
+interface recentCommentItemType{
+	id: number,
+	content: string,
+	date: number,
+	score: number,
+	user_id: number,
+	movie_id: number,
+	nickname: string
+}
+
+interface recentLongCommentItemType{
+	id: number,
+	content: string,
+	date: number,
+	score: number,
+	movie_id: number,
+	title: string
+	user_id: number,
+	spoiler: number,
+	nickname: string
+}
 
 
 const Detail:React.FC = () => {
@@ -62,6 +85,8 @@ const Detail:React.FC = () => {
 	const [movieData,setMovieData] = useState<movieDatatype>({} as movieDatatype)
 	const [commentScoreObj,setCommentScoreObj] = useState<commentScoreObjType>({} as commentScoreObjType)
 	const [WindowIsShow, setWindowIsShow] = useState(false)
+	const [recentCommentList,setRecentCommentList] = useState<recentCommentItemType[]>([])
+	const [recentLongCommentList,setRecentLongCommentList] = useState<recentLongCommentItemType[]>([])
 
 	const params = useParams()
 
@@ -74,6 +99,8 @@ const Detail:React.FC = () => {
 				setMovieData(data.movieData)
 				setMaybeLikeList(data.maybeLikeList)
 				setCommentScoreObj(data.commentScoreObj)
+				setRecentCommentList(data.recentCommentList)
+				setRecentLongCommentList(data.recentLongCommentList)
 			})
 	},[params.movie_id])
 
@@ -124,7 +151,21 @@ const Detail:React.FC = () => {
 						<CommonTitle title={"喜欢这部电影的人也喜欢"}/>
 						<PhotoBox photoBox={maybeLikeList} height={'163px'} />
 						<CommonTitle title={movieData.name + "的短评"} content={`全部${movieData.commentsCount}条`} link={`/shortComments/${movieData.id}/1/all`}/>
-						<CommonTitle title={movieData.name + "的长评"} content={`全部${movieData.longCommentsCount}条`} link={`/longComments/${movieData.id}/1`}/>
+						<ul className={style.commentList}>
+							{
+								recentCommentList.length > 0 && recentCommentList.map(item => {
+									return 	<CommentItem comment={item} key={item.id}/>
+								})
+							}
+						</ul>
+						<CommonTitle title={movieData.name + "影评"} content={`全部${movieData.longCommentsCount}条`} link={`/longComments/${movieData.id}/1`}/>
+						<ul className={style.longCommentsList}>
+							{
+								recentLongCommentList.length > 0 && recentLongCommentList.map(item => {
+									return 	<LongCommentItem longComment={item}/>
+								})
+							}
+						</ul>
 					</Fragment>
 				}
 				right={

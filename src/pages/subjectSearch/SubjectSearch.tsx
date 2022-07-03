@@ -5,7 +5,7 @@ import style from "./subjectSearch.styl"
 import CommonFooter from "../../common/commonFooter/CommonFooter";
 import axios from "axios"
 import {Link,useParams } from "react-router-dom"
-import Star from "../../common/star/Star";
+import MovieDataList from "../../common/movieDataList/MovieDataList";
 
 
 interface movieDatatype{
@@ -46,7 +46,6 @@ interface celebrityDataType{
 const SubjectSearch = () => {
 	const params = useParams()
 	const { searchContent, searchType } = params
-
 	const [movieContentData, setMovieContentData] = useState<movieDatatype[]>([]);
 	const [celebrityContentData, setCelebrityContentData] = useState<celebrityDataType[]>([]);
 
@@ -73,23 +72,7 @@ const SubjectSearch = () => {
 				title={`搜索 ${searchContent}`}
 				left={
 					<Fragment>
-						<ul className={style.searchList}>
-							{
-								movieContentData.length > 0 && movieContentData.map(item => {
-									return 	<li className={style.searchItem} key={item.id}>
-										<div className={style.searchItemLeft}>
-											<img src={item.cover}/>
-										</div>
-										<div className={style.searchItemRight}>
-											<Link to={"/detail/"+item.id} className={style.movieName}>{item.name} {item.time}</Link>
-											<div className={style.starWrapper}><Star score={item.score}/></div>
-											<span className={style.score}>{item.score}</span>
-											<p className={style.movieDesc}>{item.country}/{item.type}/{item.name}//{item.timeLen}</p>
-										</div>
-									</li>
-								})
-							}
-						</ul>
+						<MovieDataList movieContentData={movieContentData}/>
 						<ul className={style.searchList}>
 							{
 								celebrityContentData.length > 0 && celebrityContentData.map(item => {
@@ -99,7 +82,7 @@ const SubjectSearch = () => {
 										</div>
 										<div className={style.searchItemRight}>
 											<Link to={"/celebrity/"+item.id} className={style.celebrityName}>{item.name}</Link>
-											<p className={style.movieDesc}>{item.vocation}/{item.birth}</p>
+											<p className={style.desc}>{item.vocation}/{item.birth}</p>
 										</div>
 									</li>
 								})
@@ -111,6 +94,10 @@ const SubjectSearch = () => {
 			<CommonFooter/>
 		</Fragment>
 	)
+
+	function timeFormatChange(time:string){
+		return time.substring(0,10)
+	}
 }
 
 
